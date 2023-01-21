@@ -32,7 +32,7 @@
         <div class="row">
             @yield('content')
 
-            @include('layout.slidebar')
+            @include('layout.sidebar')
         </div>
     </main>
 
