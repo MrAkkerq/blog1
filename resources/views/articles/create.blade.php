@@ -1,5 +1,5 @@
 @extends('layout.master')
-
+@section('title', 'Create Article')
 @section('content')
 <div class="col-md-8">
     <h3 class="pb-4 mb-4 fst-italic border-bottom">
@@ -24,7 +24,7 @@
             <label class="form-label">Текст статьи</label>
             <br>
 {{--            <input type="text" class="form-control" id="inputBody" placeholder="Введите описание статьи" name="body">--}}
-            <textarea name="body"></textarea>
+            <textarea rows="13" cols="88" name="body"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Опубликовать статью</button>
     </form>
