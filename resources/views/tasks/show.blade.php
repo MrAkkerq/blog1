@@ -6,10 +6,9 @@
             {{ $task->title }}
         </h3>
 
-        {{ $task->body }}
+        <p>{{ $task->body }}</p>
 
-        <br>
-        <a href="/tasks">Вернуться к списку задач</a>
-        <a href="/tasks/{{ $task->id }}/edit">Изменить</a>
+        <a href="/tasks" class="btn btn-primary">Вернуться к списку задач</a>
+        <a href="/tasks/{{ $task->id }}/edit" class="btn btn-light">Изменить</a>
     </div>
 @endsection

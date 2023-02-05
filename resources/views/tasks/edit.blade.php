@@ -20,7 +20,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Изменить</button>
         </form>
-
+        <br>
         <form method="POST" action="/tasks/{{ $task->id }}">
         @csrf
         @method('DELETE')
