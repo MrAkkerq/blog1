@@ -10,5 +10,6 @@
 
         <br>
         <a href="/tasks">Вернуться к списку задач</a>
+        <a href="/tasks/{{ $task->id }}/edit">Изменить</a>
     </div>
 @endsection

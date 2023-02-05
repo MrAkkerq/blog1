@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-class Task extends Model
+class Task extends \Illuminate\Database\Eloquent\Model
 {
     public $fillable = ['title', 'body'];
+//    public $quarded = [];
 
     public function getRouteKey()
     {
