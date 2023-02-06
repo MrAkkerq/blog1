@@ -27,6 +27,12 @@ Route::get('/admin/feedback', 'FeedBackController@index');
 //Route::delete('/tasks/{task}', 'TasksController@destroy');
 Route::resource('/tasks', 'TasksController');
 
+Route::post('/tasks/{task}/steps', 'TaskStepsController@store');
+//Route::patch('/steps/{step}', 'TaskStepsController@update');
+
+Route::post('/completed-steps/{step}', 'CompletedStepsController@store');
+Route::delete('/completed-steps/{step}', 'CompletedStepsController@destroy');
+
 Route::get('/contacts', 'ContactsController@index');
 Route::post('/contacts', 'ContactsController@store');
 
