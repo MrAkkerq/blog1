@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
 class TasksController extends Controller
 {
     public function index() {
-        $tasks = Task::latest()->get();
+        $tasks = Task::with('tags')->latest()->get();
 
         return view('tasks.index', compact('tasks'));
     }
@@ -57,6 +58,29 @@ class TasksController extends Controller
 
         $task->update($attributes);
         //$task->update(request(['title', 'body']));
+        $taskTags = $task->tags->keyBy('name');
+        $tags = collect(explode(',', $request->get('tags')))->keyBy(function ($item) { return $item; });
+
+        $syncIds = $taskTags->intersectByKeys($tags)->pluck('id')->toArray();
+        $tagsToAttach = $tags->diffKeys($taskTags);
+//        $tagsToDetach = $taskTags->diffKeys($tags);
+//
+//        foreach ($tagsToAttach as $tag) {
+//            $tag = Tag::firstOrCreate(['name' => $tag]);
+//            $task->tags()->attach($tag);
+//        }
+//
+//        foreach ($tagsToDetach as $tag) {
+//            $task->tags()->detach($tag);
+//        }
+
+        foreach ($tagsToAttach as $tag) {
+            $tag = Tag::firstOrCreate(['name' => $tag]);
+
+            $syncIds[] = $tag->id;
+        }
+
+        $task->tags()->sync($syncIds);
 
         return redirect('/tasks/');
     }

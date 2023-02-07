@@ -27,6 +27,11 @@ class Task extends \Illuminate\Database\Eloquent\Model
         return $this->hasMany(Step::class);
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
     public function addStep($attributes)
     {
 //        $attributes['task_id'] = $this->id;

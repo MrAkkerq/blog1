@@ -25,6 +25,8 @@ Route::get('/admin/feedback', 'FeedBackController@index');
 //Route::get('/tasks/{task}/edit', 'TasksController@edit');
 //Route::patch('/tasks/{task}', 'TasksController@update');
 //Route::delete('/tasks/{task}', 'TasksController@destroy');
+Route::get('/tasks/tags/{tag}', 'TagsController@index');
+
 Route::resource('/tasks', 'TasksController');
 
 Route::post('/tasks/{task}/steps', 'TaskStepsController@store');
