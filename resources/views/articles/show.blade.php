@@ -6,10 +6,10 @@
             {{ $article->title }}
         </h3>
 
-        <h5> {{ $article->detail }} </h5>
+        <p> {{ $article->detail }} </p>
 
         {{ $article->body }}
-
-        <div><a href="/">Вернуться к списку статей</a></div>
+        <hr>
+        <a href="/" class="btn btn-primary">Вернуться к списку статей</a>
     </div>
 @endsection

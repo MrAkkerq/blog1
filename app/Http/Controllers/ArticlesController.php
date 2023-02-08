@@ -21,21 +21,34 @@ class ArticlesController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $attributes = $request->validate([
             'code' => 'required|alpha_dash|unique:articles,code',
             'title' => 'required|min:5|max:100',
             'detail' => 'required|max:255',
             'body' => 'required',
+            'published' => 'required'
         ]);
 
-        Article::create($request->all());
+        //dd($attributes);
+
+        Article::create($attributes);
+//        $request->validate([
+//            'code' => 'required|alpha_dash|unique:articles,code',
+//            'title' => 'required|min:5|max:100',
+//            'detail' => 'required|max:255',
+//            'body' => 'required',
+//            'published' => 'required'
+//        ]);
+//
+//        Article::create($request->all());
 
         return redirect('/');
     }
 
-    public function show($code)
+    public function show(Article $article)
     {
-        $article = Article::where('code', $code)->first();
+        //dd($article);
+        //$article = Article::where('code', $code)->first();
         return view('articles.show', compact('article'));
     }
 //

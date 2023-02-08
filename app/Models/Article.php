@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    public $fillable = ['code', 'title', 'detail', 'body'];
+    public $fillable = ['code', 'title', 'detail', 'body', 'published'];
+
+    public function getRouteKeyName()
+    {
+        return 'code';
+    }
 }
