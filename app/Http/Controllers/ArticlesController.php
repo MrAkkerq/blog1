@@ -26,7 +26,7 @@ class ArticlesController extends Controller
             'title' => 'required|min:5|max:100',
             'detail' => 'required|max:255',
             'body' => 'required',
-            'published' => 'required'
+            'published' => 'boolean'
         ]);
 
         //dd($attributes);
@@ -51,38 +51,31 @@ class ArticlesController extends Controller
         //$article = Article::where('code', $code)->first();
         return view('articles.show', compact('article'));
     }
-//
-//    /**
-//     * Show the form for editing the specified resource.
-//     *
-//     * @param  int  $id
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function edit($id)
-//    {
-//        //
-//    }
-//
-//    /**
-//     * Update the specified resource in storage.
-//     *
-//     * @param  \Illuminate\Http\Request  $request
-//     * @param  int  $id
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function update(Request $request, $id)
-//    {
-//        //
-//    }
-//
-//    /**
-//     * Remove the specified resource from storage.
-//     *
-//     * @param  int  $id
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function destroy($id)
-//    {
-//        //
-//    }
+
+    public function edit(Article $article)
+    {
+        return view('articles.edit', compact('article'));
+    }
+
+    public function update(Request $request, Article $article)
+    {
+        $attributes = $request->validate([
+            'code' => 'required|alpha_dash',
+            'title' => 'required|min:5|max:100',
+            'detail' => 'required|max:255',
+            'body' => 'required',
+            'published' => 'boolean'
+        ]);
+
+        $article->update($attributes);
+
+        return redirect('/');
+    }
+
+    public function destroy(Article $article)
+    {
+        $article->delete();
+
+        return redirect('/');
+    }
 }

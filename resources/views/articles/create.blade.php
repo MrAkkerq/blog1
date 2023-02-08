@@ -6,7 +6,7 @@
         Создание статьи
     </h3>
     @include('layout.errors')
-    <form method="post" action="/">
+    <form method="POST" action="/">
         @csrf
         <div class="mb-3">
             <label for="inputCode" class="form-label">Символьный статьи</label>

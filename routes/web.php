@@ -39,6 +39,7 @@ Route::get('/contacts', 'ContactsController@index');
 Route::post('/contacts', 'ContactsController@store');
 
 Route::get('/', 'ArticlesController@index');
-Route::get('/articles/create', 'ArticlesController@create');
+//Route::get('/articles/create', 'ArticlesController@create');
 Route::post('/', 'ArticlesController@store');
-Route::get('/articles/{article}', 'ArticlesController@show');
+//Route::get('/articles/{article}', 'ArticlesController@show');
+Route::resource('/articles', 'ArticlesController');
