@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use App\Models\Article;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class ArticlesUpdateRequest extends FormRequest
 {
@@ -35,5 +34,22 @@ class ArticlesUpdateRequest extends FormRequest
             'body' => ['required'],
             'published' => ['boolean']
         ];
+    }
+
+//    protected function passedValidation()
+//    {
+//        if(!$this->has('published'))
+//        {
+//            $this->merge(['published' => 0]);
+//        }
+//    }
+    public function validatedWithPublished()
+    {
+        if(!$this->has('published'))
+        {
+            return $this->safe()->merge(['published' => 0]);
+        } else {
+            return $this->safe();
+        }
     }
 }

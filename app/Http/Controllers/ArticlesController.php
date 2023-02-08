@@ -7,6 +7,8 @@ use App\Http\Requests\ArticlesUpdateRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isNull;
+
 class ArticlesController extends Controller
 {
     public function index()
@@ -32,7 +34,6 @@ class ArticlesController extends Controller
 //        ]);
 
         //dd($attributes);
-
         Article::create($request->validated());
 //        $request->validate([
 //            'code' => 'required|alpha_dash|unique:articles,code',
@@ -68,8 +69,15 @@ class ArticlesController extends Controller
 //            'body' => 'required',
 //            'published' => 'boolean'
 //        ]);
+        //dd($request);
+//        dd($request['published']);
+//        if(!$request->has('published'))
+//        {
+//            $request->merge(['published' => 0]);
+//        }
+        //dd($request->test());
 
-        $article->update($request->validated());
+        $article->update($request->validatedWithPublished()->toArray());
 
         return redirect('/');
     }
