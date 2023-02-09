@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Article;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ArticlesUpdateRequest extends FormRequest
 {
@@ -25,10 +26,8 @@ class ArticlesUpdateRequest extends FormRequest
      */
     public function rules(Request $request)
     {
-        $articleCode = Article::query()->where('code', '=', $request->get('code'))->get()->isEmpty();
-        $isUnique = $articleCode ? 'unique:articles,code' : '';
         return [
-            'code' => ['required', 'alpha_dash', $isUnique],
+            'code' => ['required', 'alpha_dash', Rule::unique('articles')->ignore($this->get('code'), 'code')],
             'title' => ['required', 'min:5', 'max:100'],
             'detail' => ['required', 'max:255'],
             'body' => ['required'],
@@ -45,11 +44,13 @@ class ArticlesUpdateRequest extends FormRequest
 //    }
     public function validatedWithPublished()
     {
-        if(!$this->has('published'))
-        {
-            return $this->safe()->merge(['published' => 0]);
-        } else {
-            return $this->safe();
-        }
+//        if(!$this->has('published'))
+//        {
+//            return $this->safe()->merge(['published' => 0]);
+//        } else {
+//            return $this->safe();
+//        }
+
+        return !$this->has('published') ? $this->safe()->merge(['published' => 0]) : $this->safe();
     }
 }
