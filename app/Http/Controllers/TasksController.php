@@ -4,25 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Models\Task;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 
 class TasksController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $tasks = Task::with('tags')->latest()->get();
 
         return view('tasks.index', compact('tasks'));
     }
 
-    public function show(Task $task) {
+    public function show(Task $task)
+    {
         return view('tasks.show', compact('task'));
     }
 
-    public function create() {
+    public function create()
+    {
         return view('tasks.create');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
 
 //        Task::create([
 //            'title' => request('title'),

@@ -14,6 +14,39 @@ use Illuminate\Support\Facades\Route;
 //   return view('admin/feedback/index');
 //});
 
+//dd(app(\Illuminate\Filesystem\Filesystem::class));
+//dd(app(App\Models\Task::class));
+
+//app()->bind(\App\SimplePriceFormatter::class, function () {
+//   return new \App\SimplePriceFormatter();
+//});
+
+//Route::get('/test', function(\App\SimplePriceFormatter $formatter) {
+//    dd($formatter->format(10000));
+//});
+
+//app()->bind(\App\PriceFormater::class, function () {
+//   return new \App\SimplePriceFormatter();
+//});
+app()->bind(\App\PriceFormater::class, function () {
+   return new \App\OtherPriceFormatter();
+});
+
+Route::get('/test', function(\App\PriceFormater $formatter, \App\SimplePriceFormatter $simplePriceFormatter) {
+    dd($formatter->format(10000), $simplePriceFormatter->format(10000));
+});
+
+//or bind
+//app()->singleton(App\Service\Pushall::class, function() {
+//    return new App\Service\Pushall('private-key');
+//});
+
+//dd(app('pushall'));
+
+
+
+
+
 Route::view('/about', 'about');
 
 Route::get('/admin/feedback', 'FeedBackController@index');
