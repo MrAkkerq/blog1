@@ -28,13 +28,13 @@ use Illuminate\Support\Facades\Route;
 //app()->bind(\App\PriceFormater::class, function () {
 //   return new \App\SimplePriceFormatter();
 //});
-app()->bind(\App\PriceFormater::class, function () {
-   return new \App\OtherPriceFormatter();
-});
-
-Route::get('/test', function(\App\PriceFormater $formatter, \App\SimplePriceFormatter $simplePriceFormatter) {
-    dd($formatter->format(10000), $simplePriceFormatter->format(10000));
-});
+//app()->bind(\App\PriceFormater::class, function () {
+//   return new \App\OtherPriceFormatter();
+//});
+//
+//Route::get('/test', function(\App\PriceFormater $formatter, \App\SimplePriceFormatter $simplePriceFormatter) {
+//    dd($formatter->format(10000), $simplePriceFormatter->format(10000));
+//});
 
 //or bind
 //app()->singleton(App\Service\Pushall::class, function() {
@@ -43,9 +43,16 @@ Route::get('/test', function(\App\PriceFormater $formatter, \App\SimplePriceForm
 
 //dd(app('pushall'));
 
+//Route::get('/test', function() {
+//   dd(app('example'));
+//});
 
-
-
+//Route::get('/test', function(\App\Service\Pushall $pushall) {
+//   dd($pushall);
+//});
+Route::get('/test', 'TestController@index');
+//Route::get('/test', 'TestController@index')->middleware('test');
+//Route::get('/test', 'TestController@index')->middleware(\App\Http\Middleware\CustomAuthenticate::class);
 
 Route::view('/about', 'about');
 
