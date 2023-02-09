@@ -6,7 +6,7 @@
         Создание статьи
     </h3>
     @include('layout.errors')
-    <form method="POST" action="/">
+    <form method="POST" action="/articles">
         @csrf
         @include('articles.forms')
         <button type="submit" class="btn btn-primary">Опубликовать статью</button>
