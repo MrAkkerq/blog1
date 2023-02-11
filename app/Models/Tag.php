@@ -8,9 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     public $fillable = ['name'];
-    public function tasks()
+//    public function tasks()
+//    {
+//        return $this->belongsToMany(Task::class);
+//    }
+
+    public function articles()
     {
-        return $this->belongsToMany(Task::class);
+        return $this->belongsToMany(Article::class);
     }
 
     public function getRouteKeyName()

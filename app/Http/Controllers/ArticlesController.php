@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ArticlesStoreRequest;
 use App\Http\Requests\ArticlesUpdateRequest;
 use App\Models\Article;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 use function PHPUnit\Framework\isNull;
@@ -13,8 +14,8 @@ class ArticlesController extends Controller
 {
     public function index()
     {
-        $articles = Article::latest()->get();
-
+        $articles = Article::with('tags')->latest()->get();
+        //dd($articles);
         return view('articles.index', compact('articles'));
     }
 
@@ -78,6 +79,22 @@ class ArticlesController extends Controller
         //dd($request->test());
 
         $article->update($request->validatedWithPublished()->toArray());
+        //dd($request->get('tags'));
+        $articleTags = $article->tags->keyBy('name');
+        $tags = collect(explode(',', $request->get('tags')))->keyBy(function ($item) { return $item; });
+
+        $syncIds = $articleTags->intersectByKeys($tags)->pluck('id')->toArray();
+//        dd($syncIds);
+        $tagsToAttach = $tags->diffKeys($articleTags);
+        //dd($tagsToAttach);
+
+        foreach ($tagsToAttach as $tag) {
+            $tag = Tag::firstOrCreate(['name' => $tag]);
+
+            $syncIds[] = $tag->id;
+        }
+
+        $article->tags()->sync($syncIds);
 
         return redirect('/');
     }

@@ -15,6 +15,10 @@
     <textarea class="form-control" id="inputBody" name="body">{{ old('body', isset($article) ? $article->body : '') }}</textarea>
 </div>
 <div class="mb-3">
+    <label for="inputTags" class="form-label">Теги</label>
+    <input type="text" name="tags" class="form-control" id="inputTags" value="{{ old('tags', isset($article) ? $article->tags->pluck('name')->implode(',') : '') }}">
+</div>
+<div class="mb-3">
 
     {{--            <input type="text" class="form-control" id="inputBody" placeholder="Введите описание статьи" name="body">--}}
     <input type="checkbox" id="inputPublished" name="published" value="1" {{ old('published', isset($article) ? $article->published : '') ? 'checked' : '' }}>
