@@ -25,6 +25,6 @@ class Tag extends Model
 
     public static function tagsCloud()
     {
-        return (new static)->has('tasks')->get();
+        return (new static)->has('articles')->get();
     }
 }

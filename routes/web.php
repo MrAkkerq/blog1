@@ -65,7 +65,7 @@ Route::get('/admin/feedback', 'FeedBackController@index');
 //Route::get('/tasks/{task}/edit', 'TasksController@edit');
 //Route::patch('/tasks/{task}', 'TasksController@update');
 //Route::delete('/tasks/{task}', 'TasksController@destroy');
-Route::get('/tasks/tags/{tag}', 'TagsController@index');
+//Route::get('/tasks/tags/{tag}', 'TagsController@index');
 
 Route::resource('/tasks', 'TasksController');
 
@@ -83,5 +83,7 @@ Route::post('/contacts', 'ContactsController@store');
 //Route::post('/', 'ArticlesController@store');
 //Route::get('/articles/{article}', 'ArticlesController@show');
 Route::get('/', 'ArticlesController@index');
+Route::get('/articles/tags/{tag}', 'TagsController@index');
 Route::resource('/articles', 'ArticlesController');
+
 

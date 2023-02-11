@@ -8,6 +8,10 @@
 
         <p> {{ $article->detail }} </p>
 
+        @include('articles.tags', ['tags' => $article->tags])
+
+        <br>
+
         {{ $article->body }}
         <hr>
         <a href="/" class="btn btn-primary">Вернуться к списку статей</a>
