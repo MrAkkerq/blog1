@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ArticlesStoreRequest;
 use App\Http\Requests\ArticlesUpdateRequest;
 use App\Models\Article;
-use App\Models\Tag;
-use Illuminate\Http\Request;
+use App\Service\TagsSynchronizer;
 
 use function PHPUnit\Framework\isNull;
 
@@ -15,7 +14,6 @@ class ArticlesController extends Controller
     public function index()
     {
         $articles = Article::with('tags')->latest()->get();
-        //dd($articles);
         return view('articles.index', compact('articles'));
     }
 
@@ -24,35 +22,18 @@ class ArticlesController extends Controller
         return view('articles.create');
     }
 
-    public function store(ArticlesStoreRequest $request)
+    public function store(ArticlesStoreRequest $request, TagsSynchronizer $tagsSynchronizer)
     {
-//        $attributes = $request->validate([
-//            'code' => 'required|alpha_dash|unique:articles,code',
-//            'title' => 'required|min:5|max:100',
-//            'detail' => 'required|max:255',
-//            'body' => 'required',
-//            'published' => 'boolean'
-//        ]);
+        $article = Article::create($request->validated());
 
-        //dd($attributes);
-        Article::create($request->validated());
-//        $request->validate([
-//            'code' => 'required|alpha_dash|unique:articles,code',
-//            'title' => 'required|min:5|max:100',
-//            'detail' => 'required|max:255',
-//            'body' => 'required',
-//            'published' => 'required'
-//        ]);
-//
-//        Article::create($request->all());
+        $tags = collect(explode(',', $request->get('tags')))->keyBy(function ($item) { return $item; });
+        $tagsSynchronizer->sync($tags, $article);
 
         return redirect('/');
     }
 
     public function show(Article $article)
     {
-        //dd($article);
-        //$article = Article::where('code', $code)->first();
         return view('articles.show', compact('article'));
     }
 
@@ -61,40 +42,12 @@ class ArticlesController extends Controller
         return view('articles.edit', compact('article'));
     }
 
-    public function update(ArticlesUpdateRequest $request, Article $article)
+    public function update(ArticlesUpdateRequest $request, Article $article, TagsSynchronizer $tagsSynchronizer)
     {
-//        $attributes = $request->validate([
-//            'code' => 'required|alpha_dash',
-//            'title' => 'required|min:5|max:100',
-//            'detail' => 'required|max:255',
-//            'body' => 'required',
-//            'published' => 'boolean'
-//        ]);
-        //dd($request);
-//        dd($request['published']);
-//        if(!$request->has('published'))
-//        {
-//            $request->merge(['published' => 0]);
-//        }
-        //dd($request->test());
-
         $article->update($request->validatedWithPublished()->toArray());
-        //dd($request->get('tags'));
-        $articleTags = $article->tags->keyBy('name');
+
         $tags = collect(explode(',', $request->get('tags')))->keyBy(function ($item) { return $item; });
-
-        $syncIds = $articleTags->intersectByKeys($tags)->pluck('id')->toArray();
-//        dd($syncIds);
-        $tagsToAttach = $tags->diffKeys($articleTags);
-        //dd($tagsToAttach);
-
-        foreach ($tagsToAttach as $tag) {
-            $tag = Tag::firstOrCreate(['name' => $tag]);
-
-            $syncIds[] = $tag->id;
-        }
-
-        $article->tags()->sync($syncIds);
+        $tagsSynchronizer->sync($tags, $article);
 
         return redirect('/');
     }

@@ -51,6 +51,10 @@ use Illuminate\Support\Facades\Route;
 //   dd($pushall);
 //});
 Route::get('/test', 'TestController@index');
+Route::get('/test2', function(\App\Service\TagsSynchronizer $tagsSync) {
+    $tagsSync->test();
+});
+
 //Route::get('/test', 'TestController@index')->middleware('test');
 //Route::get('/test', 'TestController@index')->middleware(\App\Http\Middleware\CustomAuthenticate::class);
 

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Tag;
+use App\Service\TagsSynchronizer;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,6 +18,9 @@ class AppServiceProvider extends ServiceProvider
 //        $this->app->singleton('example', function() {
 //            return 'hello';
 //        });
+        $this->app->singleton(TagsSynchronizer::class, function () {
+            return new TagsSynchronizer();
+        });
     }
 
     /**
