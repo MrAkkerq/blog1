@@ -63,7 +63,7 @@ Route::resource('/tasks', 'TasksController');
 Route::post('/tasks/{task}/steps', 'TaskStepsController@store');
 Route::post('/completed-steps/{step}', 'CompletedStepsController@store');
 Route::delete('/completed-steps/{step}', 'CompletedStepsController@destroy');
-Route::get('/', 'TagsController@index');
+Route::get('/', 'TasksController@index');
 
 Route::get('/contacts', 'ContactsController@index');
 Route::post('/contacts', 'ContactsController@store');

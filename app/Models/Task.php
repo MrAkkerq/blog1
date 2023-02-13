@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Task extends \Illuminate\Database\Eloquent\Model
 {
+    use HasFactory;
+
     public $fillable = ['title', 'body'];
 //    public $quarded = [];
 
@@ -34,8 +37,6 @@ class Task extends \Illuminate\Database\Eloquent\Model
 
     public function addStep($attributes)
     {
-//        $attributes['task_id'] = $this->id;
-//        return Step::create($attributes);
         return $this->steps()->create($attributes);
     }
 }
