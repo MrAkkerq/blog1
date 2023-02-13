@@ -8,10 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     public $fillable = ['name'];
-//    public function tasks()
-//    {
-//        return $this->belongsToMany(Task::class);
-//    }
 
     public function articles()
     {
