@@ -13,8 +13,8 @@ class ArticleFactory extends Factory
     {
         return [
             'code' => $this->faker->countryCode(),
-            'title' => $this->faker->title(),
-            'detail' => $this->faker->randomLetter(),
+            'title' => $this->faker->word(),
+            'detail' => $this->faker->randomAscii(),
             'body' => $this->faker->text(),
             'published' => $this->faker->boolean()
         ];
