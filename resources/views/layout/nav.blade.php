@@ -16,5 +16,5 @@
         </div>
     </header>
 
-    @include('layout.navbot')
+    @include('layout.links')
 </div>
