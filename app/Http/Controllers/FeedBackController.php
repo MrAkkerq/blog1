@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class FeedBackController extends Controller
 {
+    public function __construct()
+    {
+        //$this->middleware('auth', ['only']);
+        $this->middleware('auth');
+    }
     public function index()
     {
         $feedBack = Contact::latest()->get();

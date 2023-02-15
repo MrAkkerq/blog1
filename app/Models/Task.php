@@ -7,7 +7,7 @@ class Task extends \Illuminate\Database\Eloquent\Model
 {
     use HasFactory;
 
-    public $fillable = ['title', 'body'];
+    public $fillable = ['title', 'body', 'owner_id'];
 //    public $quarded = [];
 
     public function getRouteKey()

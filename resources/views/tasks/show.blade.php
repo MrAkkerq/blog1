@@ -57,6 +57,8 @@
 
         <hr>
         <a href="/tasks" class="btn btn-primary">Вернуться к списку задач</a>
-        <a href="/tasks/{{ $task->id }}/edit" class="btn btn-light">Изменить</a>
+        @can('update', $task)
+            <a href="/tasks/{{ $task->id }}/edit" class="btn btn-light">Изменить</a>
+        @endcan
     </div>
 @endsection

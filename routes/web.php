@@ -63,10 +63,14 @@ Route::resource('/tasks', 'TasksController');
 Route::post('/tasks/{task}/steps', 'TaskStepsController@store');
 Route::post('/completed-steps/{step}', 'CompletedStepsController@store');
 Route::delete('/completed-steps/{step}', 'CompletedStepsController@destroy');
-Route::get('/', 'TasksController@index');
+Route::get('/', function() {
+    return view('index');
+});
 
 Route::get('/contacts', 'ContactsController@index');
 Route::post('/contacts', 'ContactsController@store');
 
-Route::resource('/articles', 'ArticlesController');
 
+Auth::routes();
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

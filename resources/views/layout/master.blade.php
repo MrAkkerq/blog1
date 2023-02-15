@@ -21,6 +21,8 @@
     <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
     <meta name="theme-color" content="#712cf9">
 
+    <script src="/js/app.js" defer></script>
+
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -33,7 +35,9 @@
         <div class="row">
             @yield('content')
 
-            @include('layout.sidebar')
+            @section('sidebar')
+                @include('layout.sidebar')
+            @show
         </div>
     </main>
 

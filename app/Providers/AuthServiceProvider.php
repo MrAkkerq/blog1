@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use SebastianBergmann\LinesOfCode\NegativeValueException;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -14,6 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        'App\Models\Task' => 'App\Policies\TaskPolicy'
     ];
 
     /**
@@ -21,10 +23,14 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(\Illuminate\Contracts\Auth\Access\Gate $gate)
     {
         $this->registerPolicies();
 
-        //
+        $gate->before(function ($user) {
+            if ($user->id == 2) {
+                return true;
+            };
+        });
     }
 }

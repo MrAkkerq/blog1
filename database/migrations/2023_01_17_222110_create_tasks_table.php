@@ -15,10 +15,14 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('owner_id')->unsigned();
             $table->string('title');
             $table->text('body');
             $table->boolean('completed')->default(false);
             $table->timestamps();
+
+            //$table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('owner_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

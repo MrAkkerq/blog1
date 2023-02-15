@@ -4,20 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Models\Task;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 
 class TasksController extends Controller
 {
+    public function __construct()
+    {
+        //$this->middleware('auth', ['only']);
+        $this->middleware('auth');
+        $this->middleware('can:update,task')->except(['index', 'store', 'create']);
+    }
     public function index()
     {
-        $tasks = Task::with('tags')->latest()->get();
+        //$tasks = Task::with('tags')->latest()->get();
+        //$tasks = Task::where('owner_id', auth()->id())->with('tags')->latest()->get();
+        $tasks = auth()->user()->tasks()->with('tags')->latest()->get();
 
         return view('tasks.index', compact('tasks'));
     }
 
     public function show(Task $task)
     {
+        //abort_if($task->owner_id !== auth()->id(), 403);
+
         return view('tasks.show', compact('task'));
     }
 
@@ -42,6 +53,9 @@ class TasksController extends Controller
             'body' => 'required',
         ]);
 
+        $attributes['owner_id'] = auth()->id();
+
+        //dd($attributes);
 
         Task::create($attributes);
         //dd(request()->get('title'), request(['title', 'body']));
@@ -51,6 +65,11 @@ class TasksController extends Controller
 
     public function edit(Task $task)
     {
+        //abort_if($task->owner_id !== auth()->id(), 403);
+        //abort_if(! auth()->user()->owns($task), 403);
+        //Gate::denies ??
+        //$this->authorize('update', $task);
+
         return view('tasks.edit', compact('task'));
     }
 
@@ -60,6 +79,8 @@ class TasksController extends Controller
             'title' => 'required',
             'body' => 'required',
         ]);
+
+        $attributes['owner_id'] = auth()->id();
 
         $task->update($attributes);
         //$task->update(request(['title', 'body']));
@@ -87,13 +108,13 @@ class TasksController extends Controller
 
         $task->tags()->sync($syncIds);
 
-        return redirect('/tasks/');
+        return redirect('/tasks');
     }
 
     public function destroy(Task $task)
     {
         $task->delete();
 
-        return redirect('/tasks/');
+        return redirect('/tasks');
     }
 }
