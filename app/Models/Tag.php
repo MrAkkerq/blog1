@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
-    public $fillable = ['name'];
+    public $fillable = [
+        'name'
+    ];
 
     public function articles()
     {

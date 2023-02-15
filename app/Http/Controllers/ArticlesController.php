@@ -11,9 +11,18 @@ use function PHPUnit\Framework\isNull;
 
 class ArticlesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:update,article')->except(['index', 'store', 'create']);
+    }
+
     public function index()
     {
-        $articles = Article::with('tags')->latest()->get();
+        //$articles = Article::with('tags')->latest()->get();
+        //$articles = Article::where('owner_id', auth()->id())->with('tags')->latest()->get();
+        $articles = auth()->user()->articles()->with('tags')->latest()->get();
+
         return view('articles.index', compact('articles'));
     }
 
@@ -24,12 +33,15 @@ class ArticlesController extends Controller
 
     public function store(ArticlesStoreRequest $request, TagsSynchronizer $tagsSynchronizer)
     {
-        $article = Article::create($request->validated());
+        $attributes = $request->validated();
+        $attributes['owner_id'] = auth()->id();
+
+        $article = Article::create($attributes);
 
         $tags = collect(explode(',', $request->get('tags')))->keyBy(function ($item) { return $item; });
         $tagsSynchronizer->sync($tags, $article);
 
-        return redirect('/');
+        return redirect('/articles');
     }
 
     public function show(Article $article)
@@ -39,6 +51,8 @@ class ArticlesController extends Controller
 
     public function edit(Article $article)
     {
+        //$this->authorize('update', $article);
+
         return view('articles.edit', compact('article'));
     }
 
@@ -49,13 +63,13 @@ class ArticlesController extends Controller
         $tags = collect(explode(',', $request->get('tags')))->keyBy(function ($item) { return $item; });
         $tagsSynchronizer->sync($tags, $article);
 
-        return redirect('/');
+        return redirect('/articles');
     }
 
     public function destroy(Article $article)
     {
         $article->delete();
 
-        return redirect('/');
+        return redirect('/articles');
     }
 }

@@ -11,10 +11,6 @@ class ContactsController extends Controller
     {
         return view('contacts/index');
     }
-//    public function create()
-//    {
-//        //
-//    }
 
     public function store(Request $request)
     {
@@ -27,25 +23,4 @@ class ContactsController extends Controller
 
         return redirect('/admin/feedback');
     }
-
-
-
-//    public function show($id)
-//    {
-//        //
-//    }
-
-//    public function edit($id)
-//    {
-//        //
-//    }
-//    public function update(Request $request, $id)
-//    {
-//        //
-//    }
-
-//    public function destroy($id)
-//    {
-//        //
-//    }
 }
