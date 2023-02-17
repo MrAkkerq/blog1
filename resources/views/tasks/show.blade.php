@@ -40,18 +40,20 @@
         </ul>
         @endif
 
-        <form class="card card-body mb-4" method="POST" action="/tasks/{{ $task->id }}/steps">
-            @csrf
-            <div class="form-group">
-                <input
-                    type="text" class="form-control"
-                    placeholder="Step"
-                    value="{{ old('description') }}"
-                    name="description"
-                >
-            </div>
-            <button type="submit" class="btn btn-primary">Добавить</button>
-        </form>
+        @can('update', $task)
+            <form class="card card-body mb-4" method="POST" action="/tasks/{{ $task->id }}/steps">
+                @csrf
+                <div class="form-group">
+                    <input
+                        type="text" class="form-control"
+                        placeholder="Step"
+                        value="{{ old('description') }}"
+                        name="description"
+                    >
+                </div>
+                <button type="submit" class="btn btn-primary">Добавить</button>
+            </form>
+        @endcan
 
         @include('layout.errors')
 

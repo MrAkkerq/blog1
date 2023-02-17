@@ -14,7 +14,7 @@ class TasksController extends Controller
     {
         //$this->middleware('auth', ['only']);
         $this->middleware('auth');
-        $this->middleware('can:update,task')->except(['index', 'store', 'create']);
+        $this->middleware('can:update,task')->except(['index', 'store', 'create', 'show']);
     }
     public function index()
     {
