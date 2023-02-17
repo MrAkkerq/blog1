@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TaskCreated;
 use App\Models\Tag;
 use App\Models\Task;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class TasksController extends Controller
 {
@@ -21,6 +23,11 @@ class TasksController extends Controller
         //$tasks = Task::with('tags')->latest()->get();
         //$tasks = Task::where('owner_id', auth()->id())->with('tags')->latest()->get();
         $tasks = auth()->user()->tasks()->with('tags')->latest()->get();
+
+        //dump($tasks);
+//        cache()->put('demo', 'test_data');
+//        $demo = cache()->get('demo');
+//        dump($demo);
 
         return view('tasks.index', compact('tasks'));
     }
@@ -39,7 +46,7 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
-
+        //dd($task->id);
 //        Task::create([
 //            'title' => request('title'),
 //            'body' => request('body')
@@ -52,13 +59,23 @@ class TasksController extends Controller
             'title' => 'required',
             'body' => 'required',
         ]);
+        //$article = Article::create($attributes);
 
         $attributes['owner_id'] = auth()->id();
 
         //dd($attributes);
 
-        Task::create($attributes);
+        $task = Task::create($attributes);
+
         //dd(request()->get('title'), request(['title', 'body']));
+//        Mail::to($task->owner->email)->send(
+//            new TaskCreated($task)
+//        );
+
+        //event(new TaskCreated($task));
+
+//        session()->flash('message', 'complete created task');
+        flash('Complete task create');
 
         return redirect('/tasks');
     }
@@ -108,12 +125,16 @@ class TasksController extends Controller
 
         $task->tags()->sync($syncIds);
 
+        flash('Complete task updated');
+
         return redirect('/tasks');
     }
 
     public function destroy(Task $task)
     {
         $task->delete();
+
+        flash('Complete task destroy', 'warning');
 
         return redirect('/tasks');
     }

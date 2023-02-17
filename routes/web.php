@@ -50,9 +50,21 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/test', function(\App\Service\Pushall $pushall) {
 //   dd($pushall);
 //});
-Route::get('/test', 'TestController@index');
+//Route::get('/test', 'TestController@index');
 //Route::get('/test', 'TestController@index')->middleware('test');
 //Route::get('/test', 'TestController@index')->middleware(\App\Http\Middleware\CustomAuthenticate::class);
+
+//function flash($message, $type = 'success')
+//{
+//    session()->flash('message', $message);
+//    session()->flash('message_type', $type);
+//}
+
+Route::get('/test', function(\Illuminate\Http\Request $request) {
+   dd($request->session()->all());
+
+   return session('name', 'klasjdflk');
+});
 
 Route::view('/about', 'about');
 
