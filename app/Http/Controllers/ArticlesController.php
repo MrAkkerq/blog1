@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ArticlesStoreRequest;
 use App\Http\Requests\ArticlesUpdateRequest;
 use App\Models\Article;
+use App\Notifications\ArticleCreated;
 use App\Service\TagsSynchronizer;
-
-use function PHPUnit\Framework\isNull;
+use Illuminate\Notifications\Notifiable;
 
 class ArticlesController extends Controller
 {
@@ -49,8 +49,6 @@ class ArticlesController extends Controller
 
     public function edit(Article $article)
     {
-        //$this->authorize('update', $article);
-
         return view('articles.edit', compact('article'));
     }
 
