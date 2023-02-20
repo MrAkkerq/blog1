@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Events\ArticleCreated;
+use App\Events\ArticleDeleting;
+use App\Events\ArticleUpdating;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
@@ -23,6 +25,8 @@ class Article extends Model
 
     protected $dispatchesEvents = [
         'created' => ArticleCreated::class,
+        'updating' => ArticleUpdating::class,
+        'deleting' => ArticleDeleting::class,
     ];
 
     public function getRouteKeyName()
