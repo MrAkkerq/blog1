@@ -61,7 +61,7 @@ use Illuminate\Support\Facades\Route;
 //}
 
 Route::get('/test', function(\Illuminate\Http\Request $request) {
-   dd($request->session()->all());
+   //dd($request->session()->all());
 
    return session('name', 'klasjdflk');
 });
