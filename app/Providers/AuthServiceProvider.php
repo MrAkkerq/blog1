@@ -27,10 +27,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        $gate->before(function ($user) {
-            if ($user->id == 2) {
-                return true;
-            };
-        });
+//        $gate->before(function ($user) {
+//            if ($user->id == 2) {
+//                return true;
+//            };
+//        });
     }
 }

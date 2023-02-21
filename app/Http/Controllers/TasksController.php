@@ -87,6 +87,8 @@ class TasksController extends Controller
         //Gate::denies ??
         //$this->authorize('update', $task);
 
+        //$this->authorize('update', $task);
+
         return view('tasks.edit', compact('task'));
     }
 
