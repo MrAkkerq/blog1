@@ -99,7 +99,7 @@ class TasksController extends Controller
             'body' => 'required',
         ]);
 
-        $attributes['owner_id'] = auth()->id();
+        //$attributes['owner_id'] = auth()->id();
 
         $task->update($attributes);
         //$task->update(request(['title', 'body']));
