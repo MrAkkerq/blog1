@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use App\Events\TaskCreated;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Mail;
 
@@ -58,5 +59,30 @@ class Task extends \Illuminate\Database\Eloquent\Model
     public function owner()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function isCompleted()
+    {
+        return (bool) $this->completed;
+    }
+
+    public function isNotCompleted()
+    {
+        return ! $this->isCompleted();
+    }
+
+    public function newCollection(array $models = [])
+    {
+        return new class($models) extends Collection {
+            public function allCompleted()
+            {
+                return $this->filter->isCompleted();
+            }
+
+            public function allNotCompleted()
+            {
+                return $this->filter->isNotCompleted();
+            }
+        };
     }
 }

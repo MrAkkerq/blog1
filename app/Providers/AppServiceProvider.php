@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Tag;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +19,11 @@ class AppServiceProvider extends ServiceProvider
 //        $this->app->singleton('example', function() {
 //            return 'hello';
 //        });
+        Collection::macro('toUpper', function() {
+            return $this->map(function ($item) {
+                return Str::upper($item);
+            });
+        });
     }
 
     /**
