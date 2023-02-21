@@ -60,6 +60,8 @@ use Illuminate\Support\Facades\Route;
 //    session()->flash('message_type', $type);
 //}
 
+Route::view('/demo', 'demo');
+
 Route::get('/test', function(\Illuminate\Http\Request $request) {
    //dd($request->session()->all());
 
