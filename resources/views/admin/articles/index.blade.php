@@ -6,13 +6,11 @@
             Управление статьями
         </h3>
         <table class="table table-striped">
-{{--            <tr>--}}
-{{--                <th scope="col">Название статьи</th>--}}
-{{--                <th scope="col">Изменить</th>--}}
-{{--                <th scope="col">Опубликовать</th>--}}
-{{--                <th scope="col">Снять с публикации</th>--}}
-
-{{--            </tr>--}}
+            <tr>
+                <th scope="col">Статья</th>
+                <th scope="col">Опубликовано</th>
+                <th scope="col">БД</th>
+            </tr>
             @foreach($articles as $article)
                 @include('admin.articles.item', ['article' => $article])
             @endforeach
