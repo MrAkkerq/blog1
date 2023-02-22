@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'main');
 Route::view('/about', 'about');
-Route::get('/admin/feedback', 'FeedBackController@index');
+Route::get('/admin/articles', 'TestController@index')->middleware('role:admin');
+Route::get('/admin/feedback', 'FeedBackController@index')->middleware('role:admin');
 
 Route::get('/contacts', 'ContactsController@index');
 Route::post('/contacts', 'ContactsController@store');

@@ -12,12 +12,14 @@ class ArticlesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('can:update,article')->except(['index', 'store', 'create', 'show']);
+        //$this->middleware('can:update,article')->except(['index', 'store', 'create', 'show']);
+        $this->middleware('can:show,article')->except(['index', 'store', 'create']);
+
     }
 
     public function index()
     {
-        $articles = auth()->user()->articles()->with('tags')->latest()->get();
+        $articles = Article::with('tags')->latest()->get()->allPublished();
 
         return view('articles.index', compact('articles'));
     }
@@ -52,6 +54,7 @@ class ArticlesController extends Controller
 
     public function update(ArticlesUpdateRequest $request, Article $article, TagsSynchronizer $tagsSynchronizer)
     {
+        dd($request);
         $article->update($request->validatedWithPublished()->toArray());
 
         $tags = collect(explode(',', $request->get('tags')))->keyBy(function ($item) { return $item; });

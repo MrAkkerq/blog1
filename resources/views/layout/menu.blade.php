@@ -5,6 +5,8 @@
         <a class="p-2 link-secondary" href="/contacts">Контакты</a>
         <a class="p-2 link-secondary" href="/articles">Статьи</a>
         <a class="p-2 link-secondary" href="/articles/create">Создать статью</a>
-        <a class="p-2 link-secondary" href="/admin/feedback">Админ. раздел</a>
+        @hasrole('admin')
+            <a class="p-2 link-secondary" href="/admin/feedback">Админ. раздел</a>
+        @endhasrole
     </nav>
 </div>

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Events\ArticleCreated;
 use App\Events\ArticleDeleting;
 use App\Events\ArticleUpdating;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
@@ -52,5 +53,31 @@ class Article extends Model
     public function routeNotificationForMail($notification)
     {
         return config('app.admin_email');
+    }
+
+    public function isPublished()
+    {
+        return (boolean) $this->published;
+    }
+
+    public function isNotPublished()
+    {
+        return ! $this->isPublished();
+    }
+
+    public function newCollection(array $models = [])
+    {
+        return new class($models) extends Collection
+        {
+            public function allPublished()
+            {
+                return $this->filter->isPublished();
+            }
+
+            public function allNotPublished()
+            {
+                return $this->filter->isNotPuplished();
+            }
+        };
     }
 }

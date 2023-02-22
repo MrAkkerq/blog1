@@ -14,7 +14,7 @@
 
         {{ $article->body }}
         <hr>
-        <a href="/" class="btn btn-primary">Вернуться к списку статей</a>
+        <a href="/articles" class="btn btn-primary">Вернуться к списку статей</a>
         @can('update', $article)
             <a href="/articles/{{ $article->getRouteKey() }}/edit" class="btn btn-light">Изменить</a>
         @endcan

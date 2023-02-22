@@ -5,9 +5,10 @@
         <h3 class="pb-4 mb-4 fst-italic border-bottom">
             Список статей
         </h3>
-        @foreach($articles as $article)
-            @include('articles.item', ['article' => $article])
-        @endforeach
+{{--        @foreach($articles as $article)--}}
+{{--            @include('articles.item', ['article' => $article])--}}
+{{--        @endforeach--}}
+        @each('articles.item', $articles, 'article')
         <div>
             <br>
         </div>
