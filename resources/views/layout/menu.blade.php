@@ -6,7 +6,7 @@
         <a class="p-2 link-secondary" href="/articles">Статьи</a>
         <a class="p-2 link-secondary" href="/articles/create">Создать статью</a>
         @hasrole('admin')
-            <a class="p-2 link-secondary" href="/admin/feedback">Админ. раздел</a>
+            <a class="p-2 link-secondary" href="/admin/articles">Админ. раздел</a>
         @endhasrole
     </nav>
 </div>

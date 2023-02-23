@@ -54,7 +54,7 @@ class ArticlesController extends Controller
 
     public function update(ArticlesUpdateRequest $request, Article $article, TagsSynchronizer $tagsSynchronizer)
     {
-        dd($request);
+        //dd($request);
         $article->update($request->validatedWithPublished()->toArray());
 
         $tags = collect(explode(',', $request->get('tags')))->keyBy(function ($item) { return $item; });

@@ -80,4 +80,14 @@ class Article extends Model
             }
         };
     }
+
+    public function published($published = true)
+    {
+        $this->update(['published' => $published]);
+    }
+
+    public function inPublished()
+    {
+        $this->published(false);
+    }
 }

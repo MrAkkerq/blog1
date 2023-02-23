@@ -6,6 +6,8 @@ Route::view('/', 'main');
 Route::view('/about', 'about');
 Route::get('/admin/articles', 'TestController@index')->middleware('role:admin');
 Route::get('/admin/feedback', 'FeedBackController@index')->middleware('role:admin');
+Route::post('/admin/articles/{article}', 'PublishedArticleController@store')->middleware('role:admin');;
+Route::delete('/admin/articles/{article}', 'PublishedArticleController@destroy')->middleware('role:admin');;
 
 Route::get('/contacts', 'ContactsController@index');
 Route::post('/contacts', 'ContactsController@store');
