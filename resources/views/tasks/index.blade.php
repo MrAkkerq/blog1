@@ -10,7 +10,7 @@
 {{--        @endforeach--}}
 
 
-        @each('tasks.item', $tasks, 'task', 'tasks.empty')
+        @each('tasks.item', $tasks, 'task', 'about')
 
 
         <nav class="blog-pagination" aria-label="Pagination">

@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @inject('pushall', 'App\Service\Pushall')
-@dd($pushall)
+{{--@dd($pushall)--}}
 
 @section('content')
     <div class="col-md-8">
