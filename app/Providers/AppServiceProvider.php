@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Tag;
 use App\Service\TagsSynchronizer;
+use App\View\Components\Admin;
 use App\View\Components\Alert;
 use Facade\Ignition\Views\Compilers\BladeSourceMapCompiler;
 use Illuminate\Support\Facades\Blade;
@@ -35,5 +36,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Blade::component(Alert::class, 'package-alert');
+        Blade::component(Admin::class, 'admin');
     }
 }
