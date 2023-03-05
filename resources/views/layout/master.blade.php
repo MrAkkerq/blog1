@@ -23,7 +23,7 @@
 
     <main role="main" class="container">
         <div class="row">
-            @include('layout.flash_message')
+            <x-package-alert/>
             @yield('content')
 
             @section('sidebar')

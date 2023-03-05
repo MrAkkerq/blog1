@@ -1,6 +1,5 @@
-<div class="alert alert-{{ $type ?? 'danger' }} mt-4">
-    @isset($title)
-        <h4 class="alert-heading">{{ $title }}</h4>
-    @endisset
-    {{ $slot }}
-</div>
+@if (session()->has('message'))
+    <div class="alert alert-{{ session('message_type') }} mt-4">
+        {{ session('message') }}
+    </div>
+@endif
