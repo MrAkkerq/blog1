@@ -39,7 +39,7 @@ class ArticlesController extends Controller
         $tags = collect(explode(',', $request->get('tags')))->keyBy(function ($item) { return $item; });
         $tagsSynchronizer->sync($tags, $article);
 
-        //flash('Статья создана');
+        flash('Статья создана');
 
         return redirect('/articles');
     }
