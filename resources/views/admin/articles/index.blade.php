@@ -9,12 +9,10 @@
             <tr>
                 <th scope="col">Статья</th>
                 <th scope="col">Опубликовано</th>
-                <th scope="col">БД</th>
             </tr>
             @foreach($articles as $article)
                 @include('admin.articles.item', ['article' => $article])
             @endforeach
-
         </table>
     </div>
 @endsection

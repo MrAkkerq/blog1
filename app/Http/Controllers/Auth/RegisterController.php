@@ -71,7 +71,8 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        $user->assignRole('user');
+        config('app.admin_email') == $user['email'] ? $user->assignRole('admin') : $user->assignRole('user');
+
         return $user;
     }
 }

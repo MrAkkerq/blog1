@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use App\Models\Tag;
 use App\Service\TagsSynchronizer;
+use App\View\Components\Alert;
+use Facade\Ignition\Views\Compilers\BladeSourceMapCompiler;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,5 +33,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('layout.sidebar', function ($view) {
             $view->with('tagsCloud', Tag::tagsCloud());
         });
+
+        Blade::component(Alert::class, 'package-alert');
     }
 }

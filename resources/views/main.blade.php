@@ -9,5 +9,18 @@
             $name = auth()->check() ? auth()->user()->name : 'guest';
         @endphp
         <p>Hello, {{ $name }}!</p>
+
+{{--        @component('components.alert')--}}
+{{--            @slot('title')--}}
+{{--                Уппсс--}}
+{{--            @endslot--}}
+{{--            <b>Что-то</b> пошло не так--}}
+{{--        @endcomponent--}}
+        <x-package-alert>
+            @slot('title')
+                Уппсс
+            @endslot
+            <b>Что-то</b> пошло не так
+        </x-package-alert>
     </div>
 @endsection

@@ -39,6 +39,8 @@ class ArticlesController extends Controller
         $tags = collect(explode(',', $request->get('tags')))->keyBy(function ($item) { return $item; });
         $tagsSynchronizer->sync($tags, $article);
 
+        //flash('Статья создана');
+
         return redirect('/articles');
     }
 
@@ -60,12 +62,16 @@ class ArticlesController extends Controller
         $tags = collect(explode(',', $request->get('tags')))->keyBy(function ($item) { return $item; });
         $tagsSynchronizer->sync($tags, $article);
 
+        flash('Статья обновлена');
+
         return redirect('/articles');
     }
 
     public function destroy(Article $article)
     {
         $article->delete();
+
+        flash('Статья удалена', 'warning');
 
         return redirect('/articles');
     }

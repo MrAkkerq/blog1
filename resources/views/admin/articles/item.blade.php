@@ -19,6 +19,5 @@
             </div>
         </form>
     </td>
-    <td>{{ $article->published }}</td>
 </tr>
 
