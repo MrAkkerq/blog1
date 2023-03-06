@@ -12,13 +12,15 @@
 
     <!-- Scripts -->
 {{--    <script src="{{ asset('js/app.js') }}" defer></script>--}}
-    <script src="/js/app.js"></script>
+    <script src="{{ mix("/js/app.js") }}"></script>
+    <script src="{{ mix("/js/vendor.js") }}"></script>
+    <script src="{{ mix("/js/manifest.js") }}"></script>
 
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="/css/blog.css" rel="stylesheet">
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="{{ mix("/css/app.css") }}" rel="stylesheet">
 </head>
 <body>
     @include('layout.nav')
