@@ -33,9 +33,9 @@
     @include('layout.nav')
 
     <main role="main" class="container" id="app">
-        <div class="row">
-            <example-component></example-component>
-        </div>
+{{--        <div class="row">--}}
+{{--            <example-component></example-component>--}}
+{{--        </div>--}}
         <div class="row">
 
             @include('layout.flash_message')
@@ -50,14 +50,20 @@
     @include('layout.footer')
 
     @push('scripts')
-    <script src={{ mix("/js/manifest.js") }}></script>
-    <script src={{ mix("/js/vendor.js") }}></script>
-    <script src={{ mix("/js/app.js") }}></script>
+        <script src={{ mix("/js/manifest.js") }}></script>
+        <script src={{ mix("/js/vendor.js") }}></script>
+        <script src={{ mix("/js/app.js") }}></script>
+{{--        <script src="/js/manifest.js"></script>--}}
+{{--        <script src="/js/vendor.js"></script>--}}
+{{--        <script src="/js/app.js"></script>--}}
+
     @endpush
 
-    @prepend('scripts')
-        //
-    @endprepend
+{{--    @prepend('scripts')--}}
+{{--        <script src={{ mix("/js/manifest.js") }}></script>--}}
+{{--        <script src={{ mix("/js/vendor.js") }}></script>--}}
+{{--        <script src={{ mix("/js/app.js") }}></script>--}}
+{{--    @endprepend--}}
 
     @stack('scripts')
 </body>
