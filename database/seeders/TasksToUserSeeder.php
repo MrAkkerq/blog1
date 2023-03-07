@@ -15,7 +15,7 @@ class TasksToUserSeeder extends Seeder
     public function run()
     {
         $user = \App\Models\User::factory()->create([
-            'email' => 'admin@mail.com',
+            'email' => config('app.admin_email'),
             'name' => 'admin',
             'password' => Hash::make('123'),
         ]);

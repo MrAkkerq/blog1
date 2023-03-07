@@ -17,7 +17,7 @@ class TaskFactory extends Factory
             'title' => $this->faker->words(3, true),
             'body' => $this->faker->sentence,
             'completed' => $this->faker->boolean(),
-            'owner_id' => \App\Models\User::factory()->create(),
+            'owner_id' => \App\Models\User::factory(),
         ];
     }
 }
