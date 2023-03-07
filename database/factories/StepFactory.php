@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class TaskFactory extends Factory
+class StepFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,10 +14,8 @@ class TaskFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->words(3, true),
-            'body' => $this->faker->sentence,
-            'completed' => $this->faker->boolean(),
-            'owner_id' => \App\Models\User::factory()->create(),
+            'description' => $this->faker->sentence,
+            'task_id' => \App\Models\Task::factory(),
         ];
     }
 }

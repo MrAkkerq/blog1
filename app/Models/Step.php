@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 class Step extends Model
 {
+    use HasFactory;
+
     public $fillable = ['completed', 'task_id', 'description'];
 
     public function task()
