@@ -28,6 +28,10 @@
     <link href="/css/blog.css" rel="stylesheet">
     <link href={{ mix("/css/app.css") }} rel="stylesheet">
 
+    <script src={{ mix("/js/manifest.js") }}></script>
+    <script src={{ mix("/js/vendor.js") }}></script>
+    <script src={{ mix("/js/app.js") }}></script>
+
 </head>
 <body>
     @include('layout.nav')
@@ -49,15 +53,13 @@
 
     @include('layout.footer')
 
-    @push('scripts')
-        <script src={{ mix("/js/manifest.js") }}></script>
-        <script src={{ mix("/js/vendor.js") }}></script>
-        <script src={{ mix("/js/app.js") }}></script>
+{{--    @push('scripts')--}}
+{{--        --}}
 {{--        <script src="/js/manifest.js"></script>--}}
 {{--        <script src="/js/vendor.js"></script>--}}
 {{--        <script src="/js/app.js"></script>--}}
 
-    @endpush
+{{--    @endpush--}}
 
 {{--    @prepend('scripts')--}}
 {{--        <script src={{ mix("/js/manifest.js") }}></script>--}}
@@ -65,7 +67,7 @@
 {{--        <script src={{ mix("/js/app.js") }}></script>--}}
 {{--    @endprepend--}}
 
-    @stack('scripts')
+{{--    @stack('scripts')--}}
 </body>
 </html>
 
