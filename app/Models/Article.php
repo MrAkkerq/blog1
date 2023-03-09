@@ -90,4 +90,9 @@ class Article extends Model
     {
         $this->published(false);
     }
+
+//    public function setTag($tag)
+//    {
+//
+//    }
 }
