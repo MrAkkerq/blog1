@@ -18,21 +18,17 @@ class ArticlesToUsersSeeder extends Seeder
         Role::create(['name' => 'admin']);
         Role::create(['name' => 'user']);
 
-        $admin = \App\Models\User::factory()->create([
+        \App\Models\User::factory()->create([
             'email' => config('app.admin_email'),
             'name' => 'admin',
             'password' => Hash::make('123'),
         ])->assignRole('admin');
 
-        $user1 = \App\Models\User::factory()->create([
-            'email' => 'user1@mail.ru',
-            'name' => 'user1',
-            'password' => Hash::make('123'),
-        ])->assignRole('user');
+        \App\Models\User::factory()->count(2)->create();
 
         $tags = \App\Models\Tag::factory()->count(4)->create();
 
-        foreach ([$admin, $user1] as $user) {
+        foreach (\App\Models\User::get() as $user) {
             \App\Models\Article::factory()->count(10)->create([
                 'owner_id' => $user,
             ])->each(function (\App\Models\Article $article) use ($tags) {
