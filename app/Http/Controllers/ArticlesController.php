@@ -19,6 +19,10 @@ class ArticlesController extends Controller
 
     public function index()
     {
+//        $test = Article::get()->getCountPublishedArticlesWith('10.03.2023');
+//        $publishedArticlesWithDate = Article::get()->publishedArticlesWith('11.12.2022');
+//
+//        dump($publishedArticlesWithDate);
         $articles = Article::with('tags')->latest()->get()->allPublished();
 
         return view('articles.index', compact('articles'));

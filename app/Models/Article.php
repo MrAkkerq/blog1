@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Events\ArticleCreated;
 use App\Events\ArticleDeleting;
 use App\Events\ArticleUpdating;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -77,6 +78,22 @@ class Article extends Model
             public function allNotPublished()
             {
                 return $this->filter->isNotPuplished();
+            }
+
+            public function getCountPublishedArticlesWith($date)
+            {
+                return $this
+                    ->where('published', true)
+                    ->where('updated_at', '>=' , Carbon::parse($date))
+                    ->count();
+            }
+
+            public function publishedArticlesWithPeriod($dateFrom, $dateTo)
+            {
+                return $this
+                    ->where('published', true)
+                    ->where('created_at', '>=' , Carbon::parse($dateFrom))
+                    ->where('created_at', '<=', Carbon::parse($dateTo));
             }
         };
     }
