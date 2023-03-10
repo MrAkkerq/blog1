@@ -30,11 +30,15 @@ class ArticlesToUsersSeeder extends Seeder
             'password' => Hash::make('123'),
         ])->assignRole('user');
 
+        $tags = \App\Models\Tag::factory()->count(4)->create();
+
         foreach ([$admin, $user1] as $user) {
             \App\Models\Article::factory()->count(10)->create([
                 'owner_id' => $user,
-            ])->each(function (\App\Models\Article $article) {
-                $article->tags()->saveMany(\App\Models\Tag::factory(rand(1, 5))->make());
+            ])->each(function (\App\Models\Article $article) use ($tags) {
+                $article->tags()->saveMany(\App\Models\Tag::factory(rand(1, 2))->make());
+
+                $article->tags()->save($tags[rand(0, count($tags) - 1)]);
             });
         }
     }
