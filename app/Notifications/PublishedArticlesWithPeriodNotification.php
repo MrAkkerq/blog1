@@ -12,10 +12,12 @@ class PublishedArticlesWithPeriodNotification extends Notification implements Sh
     use Queueable;
 
     protected $articles;
+    protected $subject;
 
-    public function __construct($articles)
+    public function __construct($articles, $subject)
     {
         $this->articles = $articles;
+        $this->subject = $subject;
     }
 
     public function via($notifiable): array
@@ -26,9 +28,9 @@ class PublishedArticlesWithPeriodNotification extends Notification implements Sh
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Статьи за период')
+            ->subject($this->subject)
             ->line($this->articles)
-            ->action('Welcome', url('/articles'))
+            ->action('Welcome', url('/'))
             ->line('Thank you for using our application!');
     }
 

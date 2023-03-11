@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('send:count-published-articles-with-date-to-all-users')
+            ->weeklyOn(1, '8:00');
     }
 
     /**

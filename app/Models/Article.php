@@ -80,20 +80,12 @@ class Article extends Model
                 return $this->filter->isNotPuplished();
             }
 
-            public function getCountPublishedArticlesWith($date)
-            {
-                return $this
-                    ->where('published', true)
-                    ->where('updated_at', '>=' , Carbon::parse($date))
-                    ->count();
-            }
-
             public function publishedArticlesWithPeriod($dateFrom, $dateTo)
             {
                 return $this
                     ->where('published', true)
                     ->where('created_at', '>=' , Carbon::parse($dateFrom))
-                    ->where('created_at', '<=', Carbon::parse($dateTo));
+                    ->where('created_at', '<', Carbon::parse($dateTo));
             }
         };
     }
