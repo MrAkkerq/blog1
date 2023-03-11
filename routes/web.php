@@ -84,6 +84,10 @@ Route::get('/', function() {
 Route::get('/contacts', 'ContactsController@index');
 Route::post('/contacts', 'ContactsController@store');
 
+Route::middleware('auth')->post('/company', function () {
+    auth()->user()->company()->create(request()->validate(['name' => 'required']));
+});
+
 
 Auth::routes();
 

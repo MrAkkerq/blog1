@@ -52,4 +52,9 @@ class User extends Authenticatable
         //dd(auth()->user->id == 3);
         return $this->id == 3;
     }
+
+    public function company()
+    {
+        return $this->hasOne(Company::class, 'owner_id');
+    }
 }
