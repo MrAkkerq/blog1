@@ -178,6 +178,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
 
 
+        App\Providers\PushAllServiceProvider::class,
     ],
 
     /*
