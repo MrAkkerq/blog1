@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Events\ArticleCreated;
 use App\Events\ArticleDeleting;
 use App\Events\ArticleUpdating;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -78,6 +79,14 @@ class Article extends Model
             {
                 return $this->filter->isNotPuplished();
             }
+
+            public function publishedArticlesWithPeriod($dateFrom, $dateTo)
+            {
+                return $this
+                    ->where('published', true)
+                    ->where('created_at', '>=' , Carbon::parse($dateFrom))
+                    ->where('created_at', '<', Carbon::parse($dateTo));
+            }
         };
     }
 
@@ -90,4 +99,9 @@ class Article extends Model
     {
         $this->published(false);
     }
+
+//    public function setTag($tag)
+//    {
+//
+//    }
 }

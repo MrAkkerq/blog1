@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
+    use hasFactory;
+
     public $fillable = [
         'name'
     ];
@@ -24,5 +26,10 @@ class Tag extends Model
     public static function tagsCloud()
     {
         return (new static)->has('articles')->get();
+    }
+
+    public function getId()
+    {
+        return $this->getArrayAttributeByKey('id');
     }
 }
