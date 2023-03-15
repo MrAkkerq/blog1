@@ -18,6 +18,7 @@ class TaskFactory extends Factory
             'body' => $this->faker->sentence,
             'completed' => $this->faker->boolean(),
             'owner_id' => \App\Models\User::factory(),
+            'type' => $this->faker->randomElement(['new', 'old', 'hot'])
         ];
     }
 }

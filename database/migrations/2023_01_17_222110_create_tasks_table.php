@@ -19,7 +19,11 @@ class CreateTasksTable extends Migration
             $table->string('title');
             $table->text('body');
             $table->boolean('completed')->default(false);
+            $table->string('type')->default('new');
+            $table->text('options')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+            $table->timestamp('viewed_at')->useCurrent();
 
             //$table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('owner_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
