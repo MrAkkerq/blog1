@@ -10,9 +10,11 @@ return new class extends Migration {
         Schema::create('changes', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->unsignedInteger('task_id');
+            $table->bigInteger('task_id')->unsigned();
             $table->string('element');
             $table->timestamps();
+
+            $table->foreign('task_id')->references('id')->on('tasks')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 
