@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
 //        Task::factory(10)->create();
         $this->call([
             TasksToUserSeeder::class,
-            UsersTableSeeder::class,
+//            UsersTableSeeder::class,
         ]);
     }
 }

@@ -10,7 +10,9 @@ class Step extends Model
 {
     use HasFactory;
 
-    public $fillable = ['completed', 'task_id', 'description'];
+    protected $fillable = ['completed', 'task_id', 'description'];
+
+    protected $touches = ['task'];
 
     public function task()
     {

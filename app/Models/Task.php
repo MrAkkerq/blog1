@@ -24,9 +24,9 @@ class Task extends \Illuminate\Database\Eloquent\Model
         'type' => 'new',
     ];
 
-    protected $appends = [
-        'double_type'
-    ];
+//    protected $appends = [
+//        'double_type'
+//    ];
 
     protected $dates = [
         'viewed_at'
@@ -34,16 +34,18 @@ class Task extends \Illuminate\Database\Eloquent\Model
 
     protected $casts = [
         'completed' => 'boolean',
+        'options' => 'array',
+        'viewed_at' => 'datetime:Y-m-d'
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope('onlyNew', function (\Illuminate\Database\Eloquent\Builder $builder) {
-            $builder->new();
-        });
-    }
+//    protected static function boot()
+//    {
+//        parent::boot();
+//
+//        static::addGlobalScope('onlyNew', function (\Illuminate\Database\Eloquent\Builder $builder) {
+//            $builder->new();
+//        });
+//    }
 
     public function getTypeAttribute($value)
     {
