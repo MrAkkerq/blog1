@@ -97,6 +97,11 @@ class Task extends \Illuminate\Database\Eloquent\Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function changes()
+    {
+        return $this->hasMany(Change::class);
+    }
+
     public function addStep($attributes)
     {
         return $this->steps()->create($attributes);

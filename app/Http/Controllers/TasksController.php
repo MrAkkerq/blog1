@@ -102,6 +102,7 @@ class TasksController extends Controller
         //$attributes['owner_id'] = auth()->id();
 
         $task->update($attributes);
+        $task->changes()->create(['user_id' => auth()->user()->id, 'element' => 'test']);
         //$task->update(request(['title', 'body']));
         $taskTags = $task->tags->keyBy('name');
         $tags = collect(explode(',', $request->get('tags')))->keyBy(function ($item) { return $item; });

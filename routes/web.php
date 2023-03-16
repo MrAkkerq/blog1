@@ -122,7 +122,10 @@ Route::get('/test', function () {
 //    ]);
 //    return \App\Models\User::with('tasks')->get();
 
-    \App\Models\Company::first()->user()->associate(\App\Models\User::first());
+//    \App\Models\Company::first()->user()->associate(\App\Models\User::first());
+
+    //return \App\Models\Task::first()->with('changes')->get();
+    return \App\Models\User::first()->with('changes')->get();
 });
 
 Auth::routes();
