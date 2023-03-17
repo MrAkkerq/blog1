@@ -58,6 +58,14 @@
         @include('layout.errors')
 
         <hr>
+
+        @forelse($task->changes as $item)
+            <p> {{ $item->email }} - {{ $item->pivot->updated_at->diffForHumans() }} - {{ $item->pivot->before }} - {{ $item->pivot->after }}</p>
+        @empty
+            <p> Нет изминений</p>
+        @endforelse
+
+        <hr>
         <a href="/tasks" class="btn btn-primary">Вернуться к списку задач</a>
         @can('update', $task)
             <a href="/tasks/{{ $task->id }}/edit" class="btn btn-light">Изменить</a>

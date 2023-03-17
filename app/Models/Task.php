@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 
 class Task extends \Illuminate\Database\Eloquent\Model
@@ -38,14 +39,22 @@ class Task extends \Illuminate\Database\Eloquent\Model
         'viewed_at' => 'datetime:Y-m-d'
     ];
 
-//    protected static function boot()
-//    {
-//        parent::boot();
-//
+    protected static function boot()
+    {
+        parent::boot();
+
 //        static::addGlobalScope('onlyNew', function (\Illuminate\Database\Eloquent\Builder $builder) {
 //            $builder->new();
 //        });
-//    }
+
+        static::updating(function (Task $task) {
+            $after = $task->getDirty();
+            $task->changes()->attach(auth()->id(), [
+                'before' => json_encode(Arr::only($task->fresh()->toArray(), array_keys($after))),
+                'after' => json_encode($after),
+            ]);
+        });
+    }
 
     public function getTypeAttribute($value)
     {
@@ -99,7 +108,8 @@ class Task extends \Illuminate\Database\Eloquent\Model
 
     public function changes()
     {
-        return $this->hasMany(Change::class);
+        return $this->belongsToMany(User::class, 'changes')
+            ->withPivot(['before', 'after'])->withTimestamps();
     }
 
     public function addStep($attributes)
