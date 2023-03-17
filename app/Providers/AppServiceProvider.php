@@ -47,5 +47,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('env', function ($env) {
             return app()->environment($env);
         });
+
+        \DB::listen(function ($query) {
+//            dd($query);
+        });
     }
 }
