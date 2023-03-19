@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ArticlesStoreRequest;
 use App\Http\Requests\ArticlesUpdateRequest;
 use App\Models\Article;
+use App\Models\ArticleComments;
 use App\Service\TagsSynchronizer;
+use Illuminate\Http\Request;
 
 class ArticlesController extends Controller
 {
@@ -77,5 +79,18 @@ class ArticlesController extends Controller
         flash('Статья удалена', 'warning');
 
         return redirect('/articles');
+    }
+
+    public function addComment(Request $request, Article $article, ArticleComments $comments)
+    {
+        $attributes = $request->validate([
+            'comment' => 'required|min:10']);
+
+        $attributes['user_id'] = auth()->id();
+        $attributes['article_id'] = $article->id;
+
+        $comments->create($attributes);
+
+        return back();
     }
 }
