@@ -100,6 +100,18 @@ class Article extends Model
         $this->published(false);
     }
 
+    public function comments()
+    {
+        return $this->belongsToMany(User::class, 'article_comments')
+            ->withPivot(['comment'])->withTimestamps();
+    }
+
+//    public function addComment($attributes)
+//    {
+//        dd(123);
+//        return $this->comments()->create($attributes);
+//    }
+
 //    public function setTag($tag)
 //    {
 //

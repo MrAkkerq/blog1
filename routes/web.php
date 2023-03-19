@@ -14,5 +14,9 @@ Route::post('/contacts', 'ContactsController@store');
 
 Route::get('/articles/tags/{tag}', 'TagsController@index');
 Route::resource('/articles', 'ArticlesController');
+Route::post('/articles/{article}/comments', 'ArticleCommentsController@store');
+
+
+Route::view('/test', 'test');
 
 Auth::routes();
