@@ -13,9 +13,10 @@ class ArticlesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except('index');
-        //$this->middleware('can:update,article')->except(['index', 'store', 'create', 'show']);
-        $this->middleware('can:show,article')->except(['index', 'store', 'create']);
+        $this->middleware('auth')->except('index', 'show', 'addComment');
+        $this->middleware('can:update,article')->except(['index', 'show', 'create', 'store']);
+//        $this->middleware('can:show,article')->except(['index', 'store', 'create', 'edit']);
+//        $this->middleware('can:edit,article')->except(['index', 'show']);
 
     }
 
