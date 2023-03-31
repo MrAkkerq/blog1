@@ -22,7 +22,8 @@ class TasksController extends Controller
     {
         //$tasks = Task::with('tags')->latest()->get();
         //$tasks = Task::where('owner_id', auth()->id())->with('tags')->latest()->get();
-        $tasks = auth()->user()->tasks()->with('tags')->latest()->get();
+//        $tasks = auth()->user()->tasks()->with('tags')->latest()->get();
+        $tasks = auth()->user()->tasks()->with('tags')->latest()->simplePaginate(2);
 
         //dump($tasks);
 //        cache()->put('demo', 'test_data');

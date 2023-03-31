@@ -308,8 +308,9 @@ Route::get('/test', function () {
 //        ->get();
 
     $tasks = DB::table('tasks')
-        ->limit(2)
-        ->get();
+        ->paginate();
+
+    dump($tasks);
 
 //    $tasks = DB::table('tasks')
 //        ->when(\request()->has('old'), function ($query){
