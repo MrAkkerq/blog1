@@ -1,3 +1,3 @@
-@hasrole('admin')
-    <a class="p-2 link-secondary" href="/admin/articles">Админ. раздел</a>
+@hasrole('Super-Admin')
+    <a class="p-2 link-secondary" href="/admin">Админ. раздел</a>
 @endhasrole

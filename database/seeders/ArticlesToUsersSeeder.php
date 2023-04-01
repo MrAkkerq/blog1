@@ -16,19 +16,20 @@ class ArticlesToUsersSeeder extends Seeder
      */
     public function run()
     {
-        Permission::create(['name' => 'edit articles']);
-        Permission::create(['name' => 'delete articles']);
-        Permission::create(['name' => 'update articles']);
         Permission::create(['name' => 'create articles']);
+        Permission::create(['name' => 'update articles']);
+        Permission::create(['name' => 'delete articles']);
 
         $admin = Role::create(['name' => 'Super-Admin']);
         $writer = Role::create(['name' => 'writer']);
         $user = Role::create(['name' => 'user']);
 
-        $writer->givePermissionTo('edit articles');
-        $writer->givePermissionTo('delete articles');
-        $writer->givePermissionTo('update articles');
         $writer->givePermissionTo('create articles');
+        $writer->givePermissionTo('update articles');
+        $writer->givePermissionTo('delete articles');
+
+        $user->givePermissionTo('create articles');
+        $user->givePermissionTo('update articles');
 
         \App\Models\User::factory()->create([
             'email' => config('app.admin_email'),

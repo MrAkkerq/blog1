@@ -16,13 +16,13 @@ class ArticlesController extends Controller
         $this->middleware('auth')->except('index', 'show', 'addComment');
         $this->middleware('can:update,article')->except(['index', 'show', 'create', 'store']);
 //        $this->middleware('can:show,article')->except(['index', 'store', 'create', 'edit']);
-//        $this->middleware('can:edit,article')->except(['index', 'show']);
+//        $this->middleware('can:edit,article')->except(['index', 'show', 'create', 'update']);
 
     }
 
     public function index()
     {
-        $articles = Article::with('tags')->latest()->get()->allPublished();
+        $articles = Article::with('tags')->latest()->where('published', true)->simplePaginate(5)/*->allPublished()*/;
 
         return view('articles.index', compact('articles'));
     }

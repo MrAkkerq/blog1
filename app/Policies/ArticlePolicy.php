@@ -25,8 +25,8 @@ class ArticlePolicy
         }
     }
 
-    public function edit(User $user, Article $article)
-    {
-        return $article->owner_id == $user->id && $user->hasPermissionTo('edit articles');
-    }
+//    public function edit(User $user, Article $article)
+//    {
+//        return $article->owner_id == $user->id && $user->hasPermissionTo('edit articles');
+//    }
 }
