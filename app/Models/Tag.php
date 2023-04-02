@@ -25,7 +25,9 @@ class Tag extends Model
 
     public static function tagsCloud()
     {
-        return (new static)->has('articles')->get();
+        return (new static)->WhereHas('articles', function ($query) {
+            $query->where('published', true);
+        })->get();
     }
 
     public function getId()
