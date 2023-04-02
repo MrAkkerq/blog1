@@ -53,12 +53,12 @@ class User extends Authenticatable
 
     public function getIsAdminAttribute()
     {
-        return (bool) rand(0, 1);
+        return (bool)rand(0, 1);
     }
 
     public function getIsManagerAttribute()
     {
-        return (bool) rand(0, 1);
+        return (bool)rand(0, 1);
     }
 
     public function tasks()
@@ -85,5 +85,15 @@ class User extends Authenticatable
     public function changes()
     {
         return $this->hasMany(Change::class);
+    }
+
+    public function steps()
+    {
+        return $this->hasManyThrough(\App\Models\Step::class, \App\Models\Task::class, 'owner_id');
+    }
+
+    public function avatar()
+    {
+        return $this->morphOne(\App\Models\Image::class, 'imageable');
     }
 }

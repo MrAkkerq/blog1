@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Step;
+use App\Models\Tag;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -10,9 +11,21 @@ class TaskStepsController extends Controller
 {
     public function store(Request $request, Task $task)
     {
-        $task->addStep($request->validate([
+        $step = $task->addStep($request->validate([
             'description' => 'required|min:5'
         ]));
+
+        $tagsToAttach = collect(explode(',', $request->get('tags')))->keyBy(function ($item) { return $item; });
+
+        $syncIds = [];
+
+        foreach ($tagsToAttach as $tag) {
+            $tag = Tag::firstOrCreate(['name' => $tag]);
+
+            $syncIds[] = $tag->id;
+        }
+
+        $step->tags()->sync($syncIds);
 
 //        $task->addStep([
 //           'description' => $request->get('description')

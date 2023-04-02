@@ -103,7 +103,7 @@ class Task extends \Illuminate\Database\Eloquent\Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 
     public function changes()
@@ -146,4 +146,14 @@ class Task extends \Illuminate\Database\Eloquent\Model
             }
         };
     }
+
+    public function company()
+    {
+        return $this->hasOneThrough(\App\Models\Company::class, \App\Models\User::class, 'id', 'owner_id');
+    }
+
+//    public function comments()
+//    {
+//        return $this->morphToMany('', 'commentable');
+//    }
 }
