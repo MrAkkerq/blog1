@@ -24,6 +24,10 @@ Route::resource('/articles', 'ArticlesController');
 Route::post('/articles/{article}/comments', 'ArticlesController@addComment');
 
 Route::get('/news', 'TheNewsController@index');
+Route::post('/news', 'TheNewsController@store');
+Route::get('/news/create', 'TheNewsController@create');
 Route::get('/news/{theNew}', 'TheNewsController@show');
 Route::get('/news/{theNew}/edit', 'TheNewsController@edit');
+Route::delete('/news/{theNew}', 'TheNewsController@destroy');
+Route::patch('/news/{theNew}', 'TheNewsController@update');
 Auth::routes();

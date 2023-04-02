@@ -9,7 +9,6 @@ return new class extends Migration {
     {
         Schema::create('the_news', function (Blueprint $table) {
             $table->id();
-            $table->boolean('hidden')->default(false);
             $table->string('title');
             $table->text('body');
             $table->timestamps();

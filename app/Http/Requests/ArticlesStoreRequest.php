@@ -25,7 +25,7 @@ class ArticlesStoreRequest extends FormRequest
     {
         return [
             'code' => 'required|alpha_dash|unique:articles,code',
-            'title' => 'required|min:5|max:100',
+            'title' => 'required|min:5|max:500',
             'detail' => 'required|max:255',
             'body' => 'required',
             'published' => 'boolean'

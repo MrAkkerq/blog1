@@ -28,7 +28,7 @@ class ArticlesUpdateRequest extends FormRequest
     {
         return [
             'code' => ['required', 'alpha_dash', Rule::unique('articles')->ignore($this->get('code'), 'code')],
-            'title' => ['required', 'min:5', 'max:100'],
+            'title' => ['required', 'min:5', 'max:50'],
             'detail' => ['required', 'max:255'],
             'body' => ['required'],
             'published' => ['boolean']

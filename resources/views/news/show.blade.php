@@ -12,9 +12,9 @@
 
         <a href="/news" class="btn btn-primary">Вернуться к списку новостей</a>
 {{--        @can('update', $article)--}}
-        @hasrole('Super-Admin')
-            <a href="/news/{{ $theNew->id }}/edit" class="btn btn-light">Изменить</a>
-        @endhasrole
+{{--        @hasrole('Super-Admin')--}}
+{{--            <a href="/news/{{ $theNew->id }}/edit" class="btn btn-light">Изменить</a>--}}
+{{--        @endhasrole--}}
 {{--        @endcan--}}
 {{--        @can('update', $article)--}}
 {{--            <a href="/articles/{{ $article->getRouteKey() }}/edit" class="btn btn-light">Изменить</a>--}}

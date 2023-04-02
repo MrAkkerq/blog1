@@ -17,12 +17,6 @@
                 <label for="inputBody" class="form-label">Текст статьи</label>
                 <textarea class="form-control" id="inputBody" name="body">{{ old('body', isset($theNew) ? $theNew->body : '') }}</textarea>
             </div>
-            <div class="mb-3">
-
-                {{--            <input type="text" class="form-control" id="inputBody" placeholder="Введите описание статьи" name="body">--}}
-                <input type="checkbox" id="inputPublished" name="published" value="1" {{ old('published', isset($theNew) ? $theNew->hidden : '') ? 'checked' : '' }}>
-                <label for="published">Скрыто</label>
-            </div>
             <button type="submit" class="btn btn-primary">Изменить</button>
         </form>
         <br>

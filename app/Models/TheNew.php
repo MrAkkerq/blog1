@@ -9,7 +9,7 @@ class TheNew extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['hidden'];
+    protected $fillable = ['title' ,'body'];
 
     public function isHidden(): bool
     {
