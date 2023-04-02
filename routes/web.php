@@ -8,8 +8,6 @@ Route::get('/admin', 'AdminController@index')->middleware('role:Super-Admin');
 Route::get('/admin/articles', 'AdminController@articles')->middleware('role:Super-Admin');
 Route::get('/admin/feedback', 'AdminController@feedBack')->middleware('role:Super-Admin');
 Route::get('/admin/news', 'AdminController@news')->middleware('role:Super-Admin');
-//Route::post('/admin/articles/{article}', 'PublishedArticleController@store')->middleware('role:Super-Admin');;
-//Route::delete('/admin/articles/{article}', 'PublishedArticleController@destroy')->middleware('role:Super-Admin');;
 Route::post('/admin/articles/{article}', 'AdminController@publishArticle')->middleware('role:Super-Admin');
 Route::delete('/admin/articles/{article}', 'AdminController@unsublishArticle')->middleware('role:Super-Admin');
 
@@ -24,10 +22,10 @@ Route::resource('/articles', 'ArticlesController');
 Route::post('/articles/{article}/comments', 'ArticlesController@addComment');
 
 Route::get('/news', 'TheNewsController@index');
-Route::post('/news', 'TheNewsController@store');
-Route::get('/news/create', 'TheNewsController@create');
+Route::post('/news', 'TheNewsController@store')->middleware('role:Super-Admin');
+Route::get('/news/create', 'TheNewsController@create')->middleware('role:Super-Admin');
 Route::get('/news/{theNew}', 'TheNewsController@show');
-Route::get('/news/{theNew}/edit', 'TheNewsController@edit');
-Route::delete('/news/{theNew}', 'TheNewsController@destroy');
-Route::patch('/news/{theNew}', 'TheNewsController@update');
+Route::get('/news/{theNew}/edit', 'TheNewsController@edit')->middleware('role:Super-Admin');
+Route::delete('/news/{theNew}', 'TheNewsController@destroy')->middleware('role:Super-Admin');
+Route::patch('/news/{theNew}', 'TheNewsController@update')->middleware('role:Super-Admin');
 Auth::routes();

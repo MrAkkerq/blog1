@@ -11,12 +11,13 @@
         <table class="table table-striped">
             <tr>
                 <th scope="col">Новости</th>
-{{--                <th scope="col">Скрыта</th>--}}
             </tr>
-{{--            @foreach($news as $theNew)--}}
-{{--                @include('admin.news.item', ['theNew' => $theNew])--}}
-{{--            @endforeach--}}
+
             @each('admin.news.item', $news, 'theNew')
+
         </table>
+
+        {{ $news->links() }}
+
     </div>
 @endsection

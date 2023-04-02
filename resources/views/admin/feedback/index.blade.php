@@ -11,9 +11,9 @@
                 <th scope="col">Message</th>
                 <th scope="col">Receiving time</th>
             </tr>
-            @foreach($feedBack as $feed)
-                @include('admin.feedback.item', ['feed' => $feed])
-            @endforeach
+
+            @each('admin.feedback.item', $feedBack, 'feed')
+
         </table>
     </div>
 @endsection

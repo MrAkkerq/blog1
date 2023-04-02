@@ -23,7 +23,7 @@ class AdminController extends Controller
 
     public function articles()
     {
-        $articles = Article::latest()->get();
+        $articles = Article::latest()->simplePaginate(5);
 
         return view('admin/articles/index', compact('articles'));
     }
@@ -44,7 +44,7 @@ class AdminController extends Controller
 
     public function news()
     {
-        $news = TheNew::latest()->get();
+        $news = TheNew::latest()->simplePaginate(5);
 
         return view('admin/news/index', compact('news'));
     }

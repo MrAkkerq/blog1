@@ -10,9 +10,12 @@
                 <th scope="col">Статья</th>
                 <th scope="col">Опубликовано</th>
             </tr>
-            @foreach($articles as $article)
-                @include('admin.articles.item', ['article' => $article])
-            @endforeach
+
+            @each('admin.articles.item', $articles, 'article')
+
         </table>
+
+        {{ $articles->links() }}
+
     </div>
 @endsection
