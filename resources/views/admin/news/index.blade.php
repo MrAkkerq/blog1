@@ -11,6 +11,7 @@
         <table class="table table-striped">
             <tr>
                 <th scope="col">Новости</th>
+                <th scope="col">Дата публикации</th>
             </tr>
 
             @each('admin.news.item', $news, 'theNew')

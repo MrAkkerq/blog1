@@ -1,5 +1,6 @@
 <tr>
     <td><a href="/articles/{{ $article->getRouteKey() }}/edit"> {{ $article->title }} </a></td>
+    <td><p class="blog-post-meta">{{ $article->created_at->toFormattedDateString() }}</p></td>
     <td>
         <form method="POST" action="/admin/articles/{{$article->code}}">
             @if ($article->published)
@@ -19,5 +20,6 @@
             </div>
         </form>
     </td>
+
 </tr>
 

@@ -1,5 +1,6 @@
 <tr>
     <td><a href="/news/{{ $theNew->id }}/edit"> {{ $theNew->title }} </a></td>
+    <td><p class="blog-post-meta">{{ $theNew->created_at->toFormattedDateString() }}</p></td>
 {{--    <td>--}}
 {{--        <form method="POST" action="/admin/news/{{$theNew->id}}">--}}
 {{--            @if ($theNew->hidden)--}}

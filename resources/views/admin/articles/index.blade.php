@@ -8,6 +8,7 @@
         <table class="table table-striped">
             <tr>
                 <th scope="col">Статья</th>
+                <th scope="col">Создана</th>
                 <th scope="col">Опубликовано</th>
             </tr>
 
