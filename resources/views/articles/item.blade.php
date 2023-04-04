@@ -3,6 +3,6 @@
     <p class="blog-post-meta">{{ $article->created_at->toFormattedDateString() }}</p>
 {{--</article>--}}
     <h5> {{ $article->detail }} </h5>
-    @include('articles.tags', ['tags' => $article->tags])
+    @include('layout.tags', ['tags' => $article->tags])
 {{ $article->body }}
 </article>

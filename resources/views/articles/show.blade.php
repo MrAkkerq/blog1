@@ -8,7 +8,7 @@
 
         <p> {{ $article->detail }} </p>
 
-        @include('articles.tags', ['tags' => $article->tags])
+        @include('layout.tags', ['tags' => $article->tags])
 
         <br>
 
@@ -24,8 +24,5 @@
         @can('update', $article)
             <a href="/articles/{{ $article->getRouteKey() }}/edit" class="btn btn-light">Изменить</a>
         @endcan
-{{--        @can('edit articles')--}}
-{{--            <a href="/articles/{{ $article->getRouteKey() }}/edit" class="btn btn-light">Изменить</a>--}}
-{{--        @endcan--}}
     </div>
 @endsection

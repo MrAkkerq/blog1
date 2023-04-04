@@ -9,11 +9,11 @@ use Illuminate\Support\Collection;
 
 class TagsSynchronizer
 {
-    public function sync(Collection $tags, Article $article)
+    public function sync(Collection $tags, $item)
     {
-        $articleTags = $article->tags->keyBy('name');
-        $syncIds = $articleTags->intersectByKeys($tags)->pluck('id')->toArray();
-        $tagsToAttach = $tags->diffKeys($articleTags);
+        $itemTags = $item->tags->keyBy('name');
+        $syncIds = $itemTags->intersectByKeys($tags)->pluck('id')->toArray();
+        $tagsToAttach = $tags->diffKeys($itemTags);
 
         foreach ($tagsToAttach as $tag) {
             $tag = Tag::firstOrCreate(['name' => $tag]);
@@ -21,6 +21,6 @@ class TagsSynchronizer
             $syncIds[] = $tag->id;
         }
 
-        $article->tags()->sync($syncIds);
+        $item->tags()->sync($syncIds);
     }
 }

@@ -30,4 +30,9 @@ class TheNew extends Model
     {
         $this->hidden(false);
     }
+
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
 }

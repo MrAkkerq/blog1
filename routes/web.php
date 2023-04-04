@@ -17,7 +17,8 @@ Route::delete('/admin/news/{theNew}', 'AdminController@hiddeTheNew')->middleware
 Route::get('/contacts', 'ContactsController@index');
 Route::post('/contacts', 'ContactsController@store');
 
-Route::get('/articles/tags/{tag}', 'TagsController@index');
+//Route::get('/articles/tags/{tag}', 'TagsController@index');
+Route::get('/tags/{tag}', 'TagsController@index');
 Route::resource('/articles', 'ArticlesController');
 Route::post('/articles/{article}/comments', 'ArticlesController@addComment');
 

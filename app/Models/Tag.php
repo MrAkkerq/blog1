@@ -15,7 +15,12 @@ class Tag extends Model
 
     public function articles()
     {
-        return $this->belongsToMany(Article::class);
+        return $this->morphedByMany(Article::class, 'taggable');
+    }
+
+    public function news()
+    {
+        return $this->morphedByMany(TheNew::class, 'taggable');
     }
 
     public function getRouteKeyName()
@@ -25,7 +30,7 @@ class Tag extends Model
 
     public static function tagsCloud()
     {
-        return (new static)->WhereHas('articles', function ($query) {
+        return (new static)->has('news')->orWhereHas('articles', function ($query) {
             $query->where('published', true);
         })->get();
     }

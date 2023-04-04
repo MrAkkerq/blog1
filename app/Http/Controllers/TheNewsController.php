@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\NewsRequest;
 use App\Models\TheNew;
+use App\Service\TagsSynchronizer;
 use Illuminate\Http\Request;
 
 class TheNewsController extends Controller
@@ -20,11 +21,14 @@ class TheNewsController extends Controller
         return view('news.create');
     }
 
-    public function store(NewsRequest $request)
+    public function store(NewsRequest $request, TagsSynchronizer $tagsSynchronizer)
     {
         $attributes = $request->validated();
 
         $theNew = TheNew::create($attributes);
+
+        $tags = collect(explode(',', $request->get('tags')))->keyBy(function ($item) { return $item; });
+        $tagsSynchronizer->sync($tags, $theNew);
 
         flash('Новость создана');
 
@@ -41,9 +45,12 @@ class TheNewsController extends Controller
         return view('news.edit', compact('theNew'));
     }
 
-    public function update(NewsRequest $request, TheNew $theNew)
+    public function update(NewsRequest $request, TheNew $theNew, TagsSynchronizer $tagsSynchronizer)
     {
         $theNew->update($request->validated());
+
+        $tags = collect(explode(',', $request->get('tags')))->keyBy(function ($item) { return $item; });
+        $tagsSynchronizer->sync($tags, $theNew);
 
         flash('Новость обновлена');
 

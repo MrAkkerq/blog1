@@ -17,6 +17,10 @@
                 <label for="inputBody" class="form-label">Текст статьи</label>
                 <textarea class="form-control" id="inputBody" name="body">{{ old('body', isset($theNew) ? $theNew->body : '') }}</textarea>
             </div>
+            <div class="mb-3">
+                <label for="inputTags" class="form-label">Теги</label>
+                <input type="text" name="tags" class="form-control" id="inputTags" value="{{ old('tags', isset($theNew) ? $theNew->tags->pluck('name')->implode(',') : '') }}">
+            </div>
             <button type="submit" class="btn btn-primary">Изменить</button>
         </form>
         <br>
