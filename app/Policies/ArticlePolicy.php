@@ -12,7 +12,7 @@ class ArticlePolicy
 
     public function update(User $user, Article $article)
     {
-        return $article->owner_id == $user->id || $user->hasRole('admin');
+        return $article->owner_id == $user->id && $user->hasPermissionTo('update articles');
     }
 
     public function show(User $user, Article $article)
@@ -24,4 +24,9 @@ class ArticlePolicy
             return true;
         }
     }
+
+//    public function edit(User $user, Article $article)
+//    {
+//        return $article->owner_id == $user->id && $user->hasPermissionTo('edit articles');
+//    }
 }

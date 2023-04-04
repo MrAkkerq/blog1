@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ArticlesToUsersSeeder::class,
         ]);
+        \App\Models\TheNew::factory()->count(10)->create();
     }
 }

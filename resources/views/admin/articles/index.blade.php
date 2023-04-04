@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('title', 'Admin | Feedback')
+@section('title', 'Admin | Articles')
 @section('content')
     <div class="col-md-8">
         <h3 class="pb-4 mb-4 fst-italic border-bottom">
@@ -8,11 +8,15 @@
         <table class="table table-striped">
             <tr>
                 <th scope="col">Статья</th>
+                <th scope="col">Создана</th>
                 <th scope="col">Опубликовано</th>
             </tr>
-            @foreach($articles as $article)
-                @include('admin.articles.item', ['article' => $article])
-            @endforeach
+
+            @each('admin.articles.item', $articles, 'article')
+
         </table>
+
+        {{ $articles->links() }}
+
     </div>
 @endsection

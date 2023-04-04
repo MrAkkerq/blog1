@@ -1,18 +1,17 @@
 @extends('layout.master')
-@section('title', 'Articles')
+@section('title', 'News')
 @section('content')
     <div class="col-md-8">
         <h3 class="pb-4 mb-4 fst-italic border-bottom">
-            Список статей
+            Новости
         </h3>
 
-        @each('articles.item', $articles, 'article')
+        @each('news.item', $news, 'theNew')
 
         <div>
             <br>
         </div>
 
-        {{ $articles->links() }}
-
+        {{ $news->links() }}
     </div>
 @endsection

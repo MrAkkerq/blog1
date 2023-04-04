@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class ArticlesToUsersSeeder extends Seeder
@@ -15,16 +16,40 @@ class ArticlesToUsersSeeder extends Seeder
      */
     public function run()
     {
-        Role::create(['name' => 'admin']);
-        Role::create(['name' => 'user']);
+        Permission::create(['name' => 'create articles']);
+        Permission::create(['name' => 'update articles']);
+        Permission::create(['name' => 'delete articles']);
+
+        $admin = Role::create(['name' => 'Super-Admin']);
+        $writer = Role::create(['name' => 'writer']);
+        $user = Role::create(['name' => 'user']);
+
+        $writer->givePermissionTo('create articles');
+        $writer->givePermissionTo('update articles');
+        $writer->givePermissionTo('delete articles');
+
+        $user->givePermissionTo('create articles');
+        $user->givePermissionTo('update articles');
 
         \App\Models\User::factory()->create([
             'email' => config('app.admin_email'),
             'name' => 'admin',
             'password' => Hash::make('123'),
-        ])->assignRole('admin');
+        ])->assignRole($admin);
 
-        \App\Models\User::factory()->count(2)->create();
+        \App\Models\User::factory()->create([
+            'email' => 'writer@mail.ru',
+            'name' => 'writer',
+            'password' => Hash::make('123'),
+        ])->assignRole($writer);
+
+        \App\Models\User::factory()->create([
+            'email' => 'user@mail.ru',
+            'name' => 'user',
+            'password' => Hash::make('123'),
+        ])->assignRole($user);
+
+//        \App\Models\User::factory()->count(2)->create();
 
         $tags = \App\Models\Tag::factory()->count(4)->create();
 

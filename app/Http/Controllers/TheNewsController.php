@@ -1,0 +1,61 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\NewsRequest;
+use App\Models\TheNew;
+use Illuminate\Http\Request;
+
+class TheNewsController extends Controller
+{
+    public function index()
+    {
+        $news = TheNew::query()->latest()->simplePaginate(3);
+
+        return view('news.index', compact('news'));
+    }
+
+    public function create()
+    {
+        return view('news.create');
+    }
+
+    public function store(NewsRequest $request)
+    {
+        $attributes = $request->validated();
+
+        $theNew = TheNew::create($attributes);
+
+        flash('Новость создана');
+
+        return redirect('/admin/news');
+    }
+
+    public function show(TheNew $theNew)
+    {
+        return view('news.show', compact('theNew'));
+    }
+
+    public function edit(TheNew $theNew)
+    {
+        return view('news.edit', compact('theNew'));
+    }
+
+    public function update(NewsRequest $request, TheNew $theNew)
+    {
+        $theNew->update($request->validated());
+
+        flash('Новость обновлена');
+
+        return redirect('/admin/news');
+    }
+
+    public function destroy(TheNew $theNew)
+    {
+        $theNew->delete();
+
+        flash('Новость удалена', 'warning');
+
+        return redirect('news');
+    }
+}

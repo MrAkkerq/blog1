@@ -14,9 +14,18 @@
 
         {{ $article->body }}
         <hr>
+        @include('articles.comments.index')
+        <hr>
+        @auth()
+            @include('articles.comments.create')
+        @endauth
+        <hr>
         <a href="/articles" class="btn btn-primary">Вернуться к списку статей</a>
         @can('update', $article)
             <a href="/articles/{{ $article->getRouteKey() }}/edit" class="btn btn-light">Изменить</a>
         @endcan
+{{--        @can('edit articles')--}}
+{{--            <a href="/articles/{{ $article->getRouteKey() }}/edit" class="btn btn-light">Изменить</a>--}}
+{{--        @endcan--}}
     </div>
 @endsection

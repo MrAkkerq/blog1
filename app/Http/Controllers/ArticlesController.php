@@ -5,21 +5,24 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ArticlesStoreRequest;
 use App\Http\Requests\ArticlesUpdateRequest;
 use App\Models\Article;
+use App\Models\ArticleComments;
 use App\Service\TagsSynchronizer;
+use Illuminate\Http\Request;
 
 class ArticlesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        //$this->middleware('can:update,article')->except(['index', 'store', 'create', 'show']);
-        $this->middleware('can:show,article')->except(['index', 'store', 'create']);
+        $this->middleware('auth')->except('index', 'show', 'addComment');
+        $this->middleware('can:update,article')->except(['index', 'show', 'create', 'store']);
+//        $this->middleware('can:show,article')->except(['index', 'store', 'create', 'edit']);
+//        $this->middleware('can:edit,article')->except(['index', 'show', 'create', 'update']);
 
     }
 
     public function index()
     {
-        $articles = Article::with('tags')->latest()->get()->allPublished();
+        $articles = Article::with('tags')->latest()->where('published', true)->simplePaginate(5)/*->allPublished()*/;
 
         return view('articles.index', compact('articles'));
     }
@@ -77,5 +80,18 @@ class ArticlesController extends Controller
         flash('Статья удалена', 'warning');
 
         return redirect('/articles');
+    }
+
+    public function addComment(Request $request, Article $article, ArticleComments $comments)
+    {
+        $attributes = $request->validate([
+            'comment' => 'required|min:10']);
+
+        $attributes['user_id'] = auth()->id();
+        $attributes['article_id'] = $article->id;
+
+        $comments->create($attributes);
+
+        return back();
     }
 }

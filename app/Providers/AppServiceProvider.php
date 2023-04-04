@@ -7,6 +7,7 @@ use App\Service\TagsSynchronizer;
 use App\View\Components\Admin;
 use App\View\Components\Alert;
 use Facade\Ignition\Views\Compilers\BladeSourceMapCompiler;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -37,5 +38,7 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::component(Alert::class, 'package-alert');
         Blade::component(Admin::class, 'admin');
+
+        Paginator::defaultSimpleView('pagination::simple-default');
     }
 }
