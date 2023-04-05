@@ -6,9 +6,21 @@
             {{ $theNew->title }}
         </h3>
 
+        @include('layout.tags', ['tags' => $theNew->tags])
+
+        <br>
+
         {{ $theNew->body }}
 
-        @include('layout.tags', ['tags' => $theNew->tags])
+        <hr>
+
+        @include('comments.index', ['item' => $theNew])
+
+        <hr>
+
+        @auth()
+            @include('comments.create', ['item' => $theNew])
+        @endauth
 
         <hr>
 

@@ -6,7 +6,6 @@ use App\Models\Article;
 use App\Models\Tag;
 use Illuminate\Support\Collection;
 
-
 class TagsSynchronizer
 {
     public function sync(Collection $tags, $item)

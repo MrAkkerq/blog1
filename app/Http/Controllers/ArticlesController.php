@@ -82,16 +82,16 @@ class ArticlesController extends Controller
         return redirect('/articles');
     }
 
-    public function addComment(Request $request, Article $article, ArticleComments $comments)
-    {
-        $attributes = $request->validate([
-            'comment' => 'required|min:10']);
-
-        $attributes['user_id'] = auth()->id();
-        $attributes['article_id'] = $article->id;
-
-        $comments->create($attributes);
-
-        return back();
-    }
+//    public function addComment(Request $request, Article $article, ArticleComments $comments)
+//    {
+//        $attributes = $request->validate([
+//            'comment' => 'required|min:10']);
+//
+//        $attributes['user_id'] = auth()->id();
+//        $attributes['article_id'] = $article->id;
+//
+//        $comments->create($attributes);
+//
+//        return back();
+//    }
 }

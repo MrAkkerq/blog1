@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Contracts\CommentableInterface;
+use App\Models\Article;
 use App\Models\Tag;
+use App\Models\TheNew;
+use App\Service\CommentAdd;
 use App\Service\TagsSynchronizer;
 use App\View\Components\Admin;
 use App\View\Components\Alert;
@@ -23,6 +27,17 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(TagsSynchronizer::class, function () {
             return new TagsSynchronizer();
         });
+
+        $this->app->singleton(CommentAdd::class, function () {
+            return new CommentAdd();
+        });
+
+//        $this->app->bind(\App\Contracts\CommentableInterface::class, \App\Models\Article::class);
+//        $this->app->bind(\App\Contracts\CommentableInterface::class, \App\Models\TheNew::class);
+//        $this->app->bind(\App\Contracts\CommentableInterface::class, function () {
+//            dd($this);
+//        });
+//        $this->app->singleton(\App\Contracts\CommentableInterface::class, \App\Models\TheNew::class);
     }
 
     /**

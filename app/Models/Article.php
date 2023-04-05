@@ -7,8 +7,8 @@ use App\Events\ArticleDeleting;
 use App\Events\ArticleUpdating;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Arr;
 
@@ -114,10 +114,15 @@ class Article extends Model
         $this->published(false);
     }
 
+//    public function comments()
+//    {
+//        return $this->belongsToMany(User::class, 'article_comments')
+//            ->withPivot(['comment'])->withTimestamps();
+//    }
+
     public function comments()
     {
-        return $this->belongsToMany(User::class, 'article_comments')
-            ->withPivot(['comment'])->withTimestamps();
+        return $this->morphToMany(Comment::class, 'commentable');
     }
 
     public function history()

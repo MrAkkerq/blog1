@@ -2,5 +2,5 @@
     <h3 class="pb-4 mb-4 fst-italic border-bottom">
         Комментарии
     </h3>
-    @each('articles.comments.item', $article->comments, 'comment')
+    @each('comments.item', $item->comments, 'comment')
 </div>

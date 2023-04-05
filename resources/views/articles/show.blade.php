@@ -14,10 +14,10 @@
 
         {{ $article->body }}
         <hr>
-        @include('articles.comments.index')
+            @include('comments.index', ['item' => $article])
         <hr>
         @auth()
-            @include('articles.comments.create')
+            @include('comments.create', ['item' => $article])
         @endauth
         <hr>
         <a href="/articles" class="btn btn-primary">Вернуться к списку статей</a>
