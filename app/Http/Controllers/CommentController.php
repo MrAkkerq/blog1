@@ -9,14 +9,8 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-//    public function index(Article $article)
-//    {
-//        return view('comments.index', compact('article'));
-//    }
-
     public function toArticle(Request $request, Article $item, CommentAdd $commentAdd)
     {
-//        dd($item);
         $comment = $request->validate([
             'comment' => ['required', 'min:10']
         ]);
@@ -24,13 +18,13 @@ class CommentController extends Controller
 
         $commentAdd->push($comment, $item);
 
-        //TODO flash
+        flash('Комментарий для статьи опубликован');
+
         return redirect()->back();
     }
 
     public function toTheNew(Request $request, TheNew $item, CommentAdd $commentAdd)
     {
-//        dd($item);
         $comment = $request->validate([
             'comment' => ['required', 'min:10']
         ]);
@@ -38,7 +32,8 @@ class CommentController extends Controller
 
         $commentAdd->push($comment, $item);
 
-        //TODO flash
+        flash('Комментарий для новости опубликован');
+
         return redirect()->back();
     }
 }

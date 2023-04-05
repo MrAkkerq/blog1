@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 class TagsSynchronizer
 {
-    public function sync(Collection $tags, $item)
+    public function sync(Collection $tags, object $item)
     {
         $itemTags = $item->tags->keyBy('name');
         $syncIds = $itemTags->intersectByKeys($tags)->pluck('id')->toArray();

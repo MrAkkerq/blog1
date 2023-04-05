@@ -17,17 +17,11 @@ Route::delete('/admin/news/{theNew}', 'AdminController@hiddeTheNew')->middleware
 Route::get('/contacts', 'ContactsController@index');
 Route::post('/contacts', 'ContactsController@store');
 
-//Route::get('/articles/tags/{tag}', 'TagsController@index');
 Route::get('/tags/{tag}', 'TagsController@index');
 Route::resource('/articles', 'ArticlesController');
 
-//Route::post('/articles/{article}/comments', 'ArticlesController@addComment');
-//Route::get('/articles/{item}/comments', 'CommentController@index');
-Route::post('/articles/{item}/comments', 'CommentController@toArticle');
-Route::post('/news/{item}/comments', 'CommentController@toTheNew');
-//Route::post('/comments', function () {
-//    dd(\request());
-//});
+Route::post('/articles/{item}/comments', 'CommentController@toArticle')->middleware('auth');
+Route::post('/news/{item}/comments', 'CommentController@toTheNew')->middleware('auth');
 
 Route::get('/news', 'TheNewsController@index');
 Route::post('/news', 'TheNewsController@store')->middleware('role:Super-Admin');
