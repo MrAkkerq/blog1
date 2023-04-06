@@ -30,4 +30,6 @@ Route::get('/news/{theNew}', 'TheNewsController@show');
 Route::get('/news/{theNew}/edit', 'TheNewsController@edit')->middleware('role:Super-Admin');
 Route::delete('/news/{theNew}', 'TheNewsController@destroy')->middleware('role:Super-Admin');
 Route::patch('/news/{theNew}', 'TheNewsController@update')->middleware('role:Super-Admin');
+
+Route::get('/statistics', 'StatisticsController');
 Auth::routes();
