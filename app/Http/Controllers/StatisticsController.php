@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\TheNew;
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class StatisticsController extends Controller
@@ -17,21 +16,51 @@ class StatisticsController extends Controller
 
         $userNameWithMostArticles = DB::table('users')
             ->join('articles', 'users.id', '=', 'articles.owner_id')
+            ->where('articles.published', true)
             ->select(DB::raw('count(articles.id) as articles_count, users.name'))
             ->groupBy('users.name')
             ->orderByRaw('articles_count desc')
-            ->first();
-        $mostActiveUserName = !is_null($userNameWithMostArticles) ? $userNameWithMostArticles->name : null;
+            ->get();
 
-        $lengthArticlesBody = DB::table('articles')->selectRaw('char_length(body) as len')
+        $mostActiveUserName = !is_null($userNameWithMostArticles) ? $userNameWithMostArticles[0]->name : null;
+        $avgCountOfArticlesUsers = (int)$userNameWithMostArticles->avg('articles_count');
+
+        $lengthArticlesBody = DB::table('articles')
+            ->where('published', true)
+            ->select(DB::raw('char_length(body) as len, title, code'))
             ->orderByRaw('len desc')
             ->get();
 
-        $maxArticleBody = $lengthArticlesBody[0]->len;
-        $minArticleBody = $lengthArticlesBody[count($lengthArticlesBody) - 1]->len;
+        $longArticle = count($lengthArticlesBody) > 0
+            ? ['len' => $lengthArticlesBody[0]->len, 'code' => $lengthArticlesBody[0]->code, 'title' => $lengthArticlesBody[0]->title]
+            : null;
+        $shortArticle = count($lengthArticlesBody) > 1
+            ? ['len' => $lengthArticlesBody[count($lengthArticlesBody) - 1]->len, 'code' => $lengthArticlesBody[count($lengthArticlesBody) - 1]->code, 'title' => $lengthArticlesBody[count($lengthArticlesBody) - 1]->title]
+            : null;
 
-//        dd($maxArticleBody->len);
+        $mostChangedArticle = DB::table('articles')
+            ->join('histories', 'articles.id', '=', 'histories.article_id')
+            ->select(DB::raw('count(articles.id) as articles_count, articles.title, articles.code'))
+            ->groupBy('articles.code')
+            ->orderByRaw('articles_count desc')
+            ->first();
 
-        return view('statistics', compact('articlesCount', 'newsCount', 'mostActiveUserName', 'maxArticleBody', 'minArticleBody'));
+        $changedArticle = !is_null($mostChangedArticle)
+            ? ['code' => $mostChangedArticle->code, 'title' => $mostChangedArticle->title]
+            : null;
+
+        $mostCommentedArticle = DB::table('articles')
+            ->join('commentables', 'articles.id', '=', 'commentables.commentable_id')
+            ->where('commentables.commentable_type', 'App\Models\Article')
+            ->select(DB::raw('count(commentables.comment_id) as count, articles.title, articles.code'))
+            ->groupBy('articles.code')
+            ->orderByRaw('count desc')
+            ->first();
+
+        $commentedArticle = !is_null($mostCommentedArticle)
+            ? ['code' => $mostCommentedArticle->code, 'title' => $mostCommentedArticle->title]
+            : null;
+
+        return view('statistics', compact('articlesCount', 'newsCount', 'mostActiveUserName', 'longArticle', 'shortArticle', 'avgCountOfArticlesUsers', 'changedArticle', 'commentedArticle'));
     }
 }
