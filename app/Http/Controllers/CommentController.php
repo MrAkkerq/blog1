@@ -14,7 +14,6 @@ class CommentController extends Controller
         $comment = $request->validate([
             'comment' => ['required', 'min:10']
         ]);
-        $comment['owner_id'] = auth()->id();
 
         $commentAdd->push($comment, $item);
 
@@ -28,7 +27,6 @@ class CommentController extends Controller
         $comment = $request->validate([
             'comment' => ['required', 'min:10']
         ]);
-        $comment['owner_id'] = auth()->id();
 
         $commentAdd->push($comment, $item);
 

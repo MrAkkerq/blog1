@@ -44,8 +44,6 @@ class ArticlesController extends Controller
 
         flash('Статья создана');
 
-        //dump($attributes);
-
         push_all($attributes['title'], $attributes['detail']);
 
         return redirect('/articles');

@@ -11,6 +11,15 @@ class Comment extends Model
         'comment',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function (Comment $comment) {
+            $comment->owner_id = auth()->id();
+        });
+    }
+
     public function commentable()
     {
         return $this->morphTo();
