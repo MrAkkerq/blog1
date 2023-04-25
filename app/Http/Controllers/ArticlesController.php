@@ -14,7 +14,7 @@ class ArticlesController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('index', 'show', 'addComment');
-        $this->middleware('can:update,article')->except(['index', 'show', 'create', 'store', 'addComment']);
+        $this->middleware('can:update,article')->except(['index', 'show', 'create', 'store']);
 //        $this->middleware('can:show,article')->except(['index', 'store', 'create', 'edit']);
 //        $this->middleware('can:edit,article')->except(['index', 'show', 'create', 'update']);
 
@@ -22,7 +22,7 @@ class ArticlesController extends Controller
 
     public function index()
     {
-        $articles = Article::with('tags')->latest()->where('published', true)->simplePaginate(5)/*->allPublished()*/;
+        $articles = Article::with('tags')->latest()->where('published', true)->simplePaginate(5);
 
         return view('articles.index', compact('articles'));
     }
@@ -79,17 +79,4 @@ class ArticlesController extends Controller
 
         return redirect('/articles');
     }
-
-//    public function addComment(Request $request, Article $article, ArticleComments $comments)
-//    {
-//        $attributes = $request->validate([
-//            'comment' => 'required|min:10']);
-//
-//        $attributes['user_id'] = auth()->id();
-//        $attributes['article_id'] = $article->id;
-//
-//        $comments->create($attributes);
-//
-//        return back();
-//    }
 }
