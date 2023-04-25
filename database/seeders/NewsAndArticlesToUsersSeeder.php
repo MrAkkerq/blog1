@@ -7,13 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class ArticlesToUsersSeeder extends Seeder
+class NewsAndArticlesToUsersSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         Permission::create(['name' => 'create articles']);
@@ -62,5 +57,11 @@ class ArticlesToUsersSeeder extends Seeder
                 $article->tags()->save($tags[rand(0, count($tags) - 1)]);
             });
         }
+
+        \App\Models\TheNew::factory()->count(10)->create()->each(function (\App\Models\TheNew $theNew) use ($tags) {
+            $theNew->tags()->saveMany(\App\Models\Tag::factory(rand(1, 2))->make());
+
+            $theNew->tags()->save($tags[rand(0, count($tags) - 1)]);
+        });
     }
 }
