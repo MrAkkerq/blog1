@@ -114,11 +114,6 @@ class Article extends Model
         $this->published(false);
     }
 
-//    public function comments()
-//    {
-//        return $this->belongsToMany(User::class, 'article_comments')
-//            ->withPivot(['comment'])->withTimestamps();
-//    }
 
     public function comments()
     {
@@ -130,15 +125,4 @@ class Article extends Model
         return $this->belongsToMany(User::class, 'histories')
             ->withPivot(['before', 'after'])->withTimestamps();
     }
-
-//    public function addComment($attributes)
-//    {
-//        dd(123);
-//        return $this->comments()->create($attributes);
-//    }
-
-//    public function setTag($tag)
-//    {
-//
-//    }
 }
