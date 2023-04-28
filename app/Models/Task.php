@@ -96,6 +96,11 @@ class Task extends \Illuminate\Database\Eloquent\Model
         return $query->where('completed', 0);
     }
 
+    public function scopeCompleted($query)
+    {
+        return $query->where('completed', true);
+    }
+
     public function steps()
     {
         return $this->hasMany(Step::class);

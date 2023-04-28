@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Tag;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -54,5 +55,29 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Paginator::defaultSimpleView('pagination::simple-default');
+
+//        \Queue::failing(function (\Illuminate\Queue\Events\JobFailed $event){
+//            $event->connectionName;
+//            $event->job;
+//            $event->exception;
+//        });
+
+//        \Queue::before(function (JobProcessing $event) {
+//            $event->connectionName;
+//            $event->job;
+//            $event->job->payload();
+//        });
+
+//        \Queue::after(function (JobProcessing $event) {
+//            $event->connectionName;
+//            $event->job;
+//            $event->job->payload();
+//        });
+
+//        \Queue::looping(function () {
+//            while (\DB::transactionLevel() > 0) {
+//                \DB::rollBack();
+//            }
+//        });
     }
 }

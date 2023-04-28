@@ -33,4 +33,14 @@ class Step extends Model
     {
         return $this->morphToMany(Tag::class, 'taggable');
     }
+
+    public function scopeCompleted($query)
+    {
+        return $query->where('completed', true);
+    }
+
+    public function owner()
+    {
+        return $this->hasOneThrough(User::class, Task::class, 'id', 'id','task_id', 'owner_id');
+    }
 }

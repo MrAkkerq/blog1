@@ -307,10 +307,10 @@ Route::get('/test', function () {
 //        ->select('id', 'title')
 //        ->get();
 
-    $tasks = DB::table('tasks')
-        ->paginate();
-
-    dump($tasks);
+//    $tasks = DB::table('tasks')
+//        ->paginate();
+//
+//    dump($tasks);
 
 //    $tasks = DB::table('tasks')
 //        ->when(\request()->has('old'), function ($query){
@@ -360,6 +360,21 @@ Route::get('/test', function () {
 //
 //
 //    dump($tasks);
+
+//    \App\Jobs\CompletedTasksReport::dispatchNow();
+//    \App\Jobs\CompletedTasksReport::dispatchNow(\App\Models\User::first());
+
+//    dispatch(function () {
+//        echo 'Hello'. PHP_EOL;
+//    });
+
+    \App\Jobs\CompletedTasksReport::dispatch();
+    \App\Jobs\CompletedTasksReport::dispatch();
+    \App\Jobs\CompletedTasksReport::dispatch(\App\Models\User::first())
+        /*->delay(now()->addSecond(10))*/
+//        ->onConnection('sync')
+        ->onQueue('reports')
+    ;
 
 });
 
