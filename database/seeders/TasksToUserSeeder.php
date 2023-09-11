@@ -17,7 +17,7 @@ class TasksToUserSeeder extends Seeder
         $user = \App\Models\User::factory()->create([
             'email' => config('app.admin_email'),
             'name' => 'admin',
-            'password' => Hash::make('123'),
+            'password' => config('app.admin_password'),
         ]);
 
         \App\Models\Task::factory()->count(5)->create([
